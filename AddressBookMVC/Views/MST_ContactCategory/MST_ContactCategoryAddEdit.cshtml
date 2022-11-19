@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = "_Layout";
+    ViewData["Title"] = "ContactCategory Add/Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -58,7 +58,10 @@
 
 
     <div class="container">
+        <h5 style="color:green"><label>@TempData["ContactCategoryInsertMessage"]</label></h5>
+        <br />
         <form method="post" asp-controller="MST_ContactCategory" asp-action="Save">
+            @Html.HiddenFor(x=>x.ContactCategoryID)
             <div class="row">
 
                 <div class="col-md-2">

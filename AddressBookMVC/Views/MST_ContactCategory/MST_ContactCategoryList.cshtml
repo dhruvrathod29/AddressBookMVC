@@ -97,9 +97,11 @@
                         &nbsp;
                         &nbsp;
 
-                        <input type="hidden" name="">
+                    </form>
+                    <form method="post" asp-controller="MST_ContactCategory" asp-action="Add">
+                        <input type="hidden" name="ContactCategoryID" value="@Convert.ToInt32(dr["ContactCategoryID"].ToString())">
                         <button type="submit" class="btn btn-a">
-                            Edit
+                            <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                     </form>
                 </td>
