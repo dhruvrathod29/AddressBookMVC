@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Country Add/Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@model LOC_CountryModel
+
+<style>
+    .btn.btn-a {
+        text-decoration: none;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+        .btn.btn-a:hover {
+            background-color: #2eca6a;
+            color: #000000;
+        }
+
+    .btn.btn-b {
+        text-decoration: none;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+        .btn.btn-b:hover {
+            
+            background-color: rgba(255,0,0, 1);
+            color: #ffffff;
+        }
+</style>
+
+
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">Country Add Edit</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#"><i class="fa-sharp fa-solid fa-clipboard-list"></i> Country List</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Country Add Edit
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <hr />
+        <br />
+        <br />
+    </div>
+
+
+    <div class="container">
+        <h5 style="color:green"><label>@TempData["CountryInsertMessage"]</label></h5>
+        <br />
+        
+        <form method="post" asp-controller="LOC_Country" asp-action="Save">
+            @Html.HiddenFor(x=>x.CountryID)
+            <div class="row">
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Country Name :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Country Name" asp-for="CountryName" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Country Code :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Country Code" asp-for="CountryCode" class="form-control" />
+                </div>
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-md-2">
+                   
+                    Creation Date :-
+                </div>
+                <div class="col-md-3">
+                    <input type="date" placeholder="Enter Creation Date" asp-for="CreationDate" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                   
+                    Modification Date :-
+                </div>
+                <div class="col-md-3">
+                    <input type="date" placeholder="Enter Modification Date" asp-for="ModificationDate" class="form-control" />
+                </div>
+            </div>     
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-1">
+                    <input type="submit" value="Save" class="btn btn-a" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1">
+                    <input type="submit" value="Cancel" class="btn btn-b" />
+                </div>
+            </div>
+        </form>
+       
+    </div>
+</section><!-- End Intro Single-->

@@ -1,0 +1,139 @@
+﻿@{
+    ViewData["Title"] = "City Add/Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@model LOC_CityModel
+
+<style>
+    .btn.btn-a {
+        text-decoration: none;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+    .btn.btn-a:hover {
+       background-color: #2eca6a;
+       color: #000000;
+    }
+
+    .btn.btn-b {
+        text-decoration: none;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+    .btn.btn-b:hover {
+        background-color: rgba(255,0,0, 1);
+        color: #ffffff;
+    }
+</style>
+
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">City Add Edit</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a>City List</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            City Add Edit
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <hr />
+        <br />
+        <br />
+    </div>
+
+
+    <div class="container">
+        <h5 style="color:green"><label>@TempData["CityInsertMessage"]</label></h5>
+        <br />
+        <form method="post" asp-controller="LOC_City" asp-action="Save">
+            @Html.HiddenFor(x=>x.CityID)
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    State ID :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter State ID" asp-for="CityID" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    City Name :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter City Name" asp-for="CityName" class="form-control" />
+                </div>
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Pin Code :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Pin Code" asp-for="PinCode" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Creation Date :-
+                </div>
+                <div class="col-md-3">
+                    <input type="date" placeholder="Enter Creation Date" asp-for="CreationDate" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Modification Date:-
+                </div>
+                <div class="col-md-3">
+                    <input type="date" placeholder="Enter Modification Date" asp-for="ModificationDate" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    @*<span style="color: #ff0000">*</span>*@
+                    @*Creation *@
+                </div>
+                <div class="col-md-3">
+                    @*<input type="date" placeholder="Enter Modification Date" asp-for="CreationDate" class="form-control" />*@
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-1">
+                    <input type="submit" value="Save" class="btn btn-a" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1">
+                    <input type="submit" value="Cancel" class="btn btn-b" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+</section><!-- End Intro Single-->

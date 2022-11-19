@@ -1,0 +1,145 @@
+﻿@{
+    Layout = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+@using System.Data
+@model  DataTable
+
+
+
+<style>
+    .btn.btn-a {
+      text-decoration: none;
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .btn.btn-a:hover {
+      background-color: #2eca6a;
+      color: #000000;
+    }
+    .btn.btn-b {
+      text-decoration: none;
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .btn.btn-b:hover {
+      background-color: #ff0000;
+      color: #ffffff;
+    }
+</style>
+
+
+
+<!-- ======= Intro Single ======= -->
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">Contact List</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a asp-action="Add" asp-controller="CON_Contact"><i class="fa-solid fa-circle-plus"></i> Contact Add Edit </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                           Contact List
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <hr />
+    </div>
+</section><!-- End Intro Single-->
+
+<br />
+<div style="overflow-x :auto">
+    <table class="table table-hover">
+
+        <thead>
+            <tr>
+                <th>Contact ID</th>
+                <th>Country Name</th>
+                <th>State Name</th>
+                <th>City Name</th>
+                <th>Contact Category Name</th>
+                <th>Contact Name</th>
+                <th>Address</th>
+                <th>PinCode</th>
+                <th>Mobile No</th>
+                <th>Alternet Contact</th>
+                <th>Email</th>
+                <th>BithDate</th>
+                <th>LinkedIn</th>
+                <th>Twitter</th>
+                <th>Insta</th>
+                <th>Gender</th>
+                <th>Creation Date</th>
+                <th>Modification Date</th>
+                <th>Action</th>
+            </tr>
+
+
+        </thead>
+        <tbody>
+            @foreach (DataRow dr in Model.Rows)
+            {
+                <tr>
+                    <td>@dr["ContactID"]</td>
+                    <td>@dr["CountryName"]</td>
+                    <td>@dr["StateName"]</td>
+                    <td>@dr["CityName"]</td>
+                    <td>@dr["ContactCategoryName"]</td>
+
+                    <td>@dr["ContactName"]</td>
+                    <td>@dr["Address"]</td>
+                    <td>@dr["PinCode"]</td>
+                    <td>@dr["MobileNo"]</td>
+                    <td>@dr["AlternetContact"]</td>
+                    <td>@dr["Email"]</td>
+                    <td>@Convert.ToDateTime(dr["BirthDate"]).ToString()</td>
+                    <td>@dr["LinkedIn"]</td>
+                    <td>@dr["Twitter"]</td>
+                    <td>@dr["Insta"]</td>
+                    <td>@dr["Gender"]</td>
+                    <td>@Convert.ToDateTime(dr["CreationDate"]).ToString("dd-MM-yyyy")</td>
+                    <td>@Convert.ToDateTime(dr["ModificationDate"]).ToString("dd-MM-yyyy")</td>
+
+
+                    <td class="d-flex">
+                        <form method="post" asp-controller="CON_Contact" asp-action="Delete">
+                            <input type="hidden" name="ContactID" value="@Convert.ToInt32(dr["ContactID"].ToString())">
+                            <button type="submit" class="btn btn-b"  onclick="return confirm('Are you sure you want to delete : @dr["ContactName"] ')">
+                                Delete
+                            </button>
+                           
+
+                          
+                        </form>
+                        &nbsp;
+
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <form method="post" asp-controller="CON_Contact" asp-action="Add">
+                            <input type="hidden" name="ContactID" value="@Convert.ToInt32(dr["ContactID"].ToString())">
+                            <button type="submit" class="btn btn-a">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                        </form>
+
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>

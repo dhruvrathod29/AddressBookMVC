@@ -1,0 +1,257 @@
+﻿@{
+    ViewData["Title"] = "Contact Add/Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@model CON_ContactModel
+
+<style>
+    .btn.btn-a {
+        text-decoration: none;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+        .btn.btn-a:hover {
+            background-color: #2eca6a;
+            color: #000000;
+        }
+
+    .btn.btn-b {
+        text-decoration: none;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+        .btn.btn-b:hover {
+            background-color: rgba(255,0,0, 1);
+            color: #ffffff;
+        }
+</style>
+
+<section class="intro-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-8">
+                <div class="title-single-box">
+                    <h1 class="title-single">Contact Add Edit</h1>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="#">Contact List</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Contact Add Edit
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <hr />
+        <br />
+        <br />
+    </div>
+
+
+    <div class="container">
+        <h5 style="color:green"><label>@TempData["ContactInsertMessage"]</label></h5>
+        <br />
+        <form method="post" asp-controller="CON_Contact" asp-action="Save">
+            @Html.HiddenFor(x=>x.ContactID)
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                     Country ID :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Contact Name" asp-for="CountryID" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    State ID :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Country Code" asp-for="StateID" class="form-control" />
+                </div>
+            </div>
+            <br />
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    City ID :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Contact Name" asp-for="CityID" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    ContactCategory ID :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Country Code" asp-for="ContactCategoryID" class="form-control" />
+                </div>
+            </div>
+            <br />
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                     Contact Name :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Contact Name" asp-for="ContactName" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Address :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Country Code" asp-for="Address" class="form-control" />
+                </div>
+            </div>
+            <br />
+
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Pin Code :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Contact Name" asp-for="PinCode" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                     Mobile No :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Country Code" asp-for="MobileNo" class="form-control" />
+                </div>
+            </div>
+
+            <br />
+
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Alternet Contact :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Contact Name" asp-for="AlternetContact" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Email :-
+                </div>
+                <div class="col-md-3">
+                    <input type="email" placeholder="Enter Country Code" asp-for="Email" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Birth Date :-
+                </div>
+                <div class="col-md-3">
+                    <input type="date" placeholder="Enter Contact Name" asp-for="BirthDate" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    LinkedIn :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Country Code" asp-for="LinkedIn" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                         Twitter :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Contact Name" asp-for="Twitter" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Insta :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Country Code" asp-for="Insta" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Gender :-
+                </div>
+                <div class="col-md-3">
+                    <input type="text" placeholder="Enter Contact Name" asp-for="Gender" class="form-control" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Creation Date :-
+                </div>
+                <div class="col-md-3">
+                    <input type="date" placeholder="Enter Country Code" asp-for="CreationDate" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Modification Date :-
+                </div>
+                <div class="col-md-3">
+                    <input type="date" placeholder="Enter Creation Date" asp-for="ModificationDate" class="form-control" />
+                </div>
+                
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-1">
+                    <input type="submit" value="Save" class="btn btn-a" />
+                </div>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-1">
+                    <input type="submit" value="Cancel" class="btn btn-b" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+</section><!-- End Intro Single-->
