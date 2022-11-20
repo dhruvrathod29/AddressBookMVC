@@ -41,7 +41,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">Contact List</a>
+                            <a asp-action="Index" asp-controller="CON_Contact"><i class="fa-regular fa-address-book"></i> Contact List</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
                             Contact Add Edit
@@ -127,7 +127,7 @@
                     Address :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country Code" asp-for="Address" class="form-control" />
+                    <input type="text" placeholder="Enter Address" asp-for="Address" class="form-control" />
                 </div>
             </div>
             <br />
@@ -140,7 +140,7 @@
                     Pin Code :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Contact Name" asp-for="PinCode" class="form-control" />
+                    <input type="text" placeholder="Enter PinCode" asp-for="PinCode" class="form-control" />
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -149,7 +149,7 @@
                      Mobile No :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country Code" asp-for="MobileNo" class="form-control" />
+                    <input type="text" placeholder="Enter Mobile No" asp-for="MobileNo" class="form-control" />
                 </div>
             </div>
 
@@ -159,11 +159,10 @@
             <div class="row">
 
                 <div class="col-md-2">
-                    <span style="color: #ff0000">*</span>
                     Alternet Contact :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Contact Name" asp-for="AlternetContact" class="form-control" />
+                    <input type="text" placeholder="Enter Alternet Contact" asp-for="AlternetContact" class="form-control" />
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -172,58 +171,53 @@
                     Email :-
                 </div>
                 <div class="col-md-3">
-                    <input type="email" placeholder="Enter Country Code" asp-for="Email" class="form-control" />
+                    <input type="email" placeholder="Enter Email" asp-for="Email" class="form-control" />
                 </div>
             </div>
             <br />
             <div class="row">
 
                 <div class="col-md-2">
-                    <span style="color: #ff0000">*</span>
                     Birth Date :-
                 </div>
                 <div class="col-md-3">
-                    <input type="date" placeholder="Enter Contact Name" asp-for="BirthDate" class="form-control" />
+                    <input type="date" placeholder="Enter Birth Date" asp-for="BirthDate" class="form-control" />
                 </div>
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-2">
-                    <span style="color: #ff0000">*</span>
                     LinkedIn :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country Code" asp-for="LinkedIn" class="form-control" />
+                    <input type="text" placeholder="Enter LinkedIn Id" asp-for="LinkedIn" class="form-control" />
                 </div>
             </div>
             <br />
             <div class="row">
 
                 <div class="col-md-2">
-                    <span style="color: #ff0000">*</span>
                          Twitter :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Contact Name" asp-for="Twitter" class="form-control" />
+                    <input type="text" placeholder="Enter Twitter Id" asp-for="Twitter" class="form-control" />
                 </div>
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-2">
-                    <span style="color: #ff0000">*</span>
                     Insta :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country Code" asp-for="Insta" class="form-control" />
+                    <input type="text" placeholder="Enter Instagram Id" asp-for="Insta" class="form-control" />
                 </div>
             </div>
             <br />
             <div class="row">
 
                 <div class="col-md-2">
-                    <span style="color: #ff0000">*</span>
                     Gender :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Contact Name" asp-for="Gender" class="form-control" />
+                    <input type="text" placeholder="Enter Gender" asp-for="Gender" class="form-control" />
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -232,7 +226,7 @@
                     Creation Date :-
                 </div>
                 <div class="col-md-3">
-                    <input type="date" placeholder="Enter Country Code" asp-for="CreationDate" class="form-control" />
+                    <input type="date" placeholder="Enter Creation Date" asp-for="CreationDate" class="form-control" />
                 </div>
             </div>
             <br />
@@ -242,7 +236,7 @@
                     Modification Date :-
                 </div>
                 <div class="col-md-3">
-                    <input type="date" placeholder="Enter Creation Date" asp-for="ModificationDate" class="form-control" />
+                    <input type="date" placeholder="Enter Modification Date" asp-for="ModificationDate" class="form-control" />
                 </div>
                 
             </div>

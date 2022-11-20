@@ -42,7 +42,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="#">ContactCategory List</a>
+                            <a asp-action="Index" asp-controller="MST_ContactCategory"><i class="fa-regular fa-address-book"></i> ContactCategory List</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
                             ContactCategory Add Edit
@@ -69,12 +69,11 @@
                     ContactCategory Name :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country Name" asp-for="ContactCategoryName" class="form-control" />
+                    <input type="text" placeholder="Enter Contact Category Name" asp-for="ContactCategoryName" class="form-control" />
                 </div>
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-2">
-                    <span style="color: #ff0000">*</span>
                      Creation Date :-
                 </div>
                 <div class="col-md-3">
@@ -85,7 +84,6 @@
 
             <div class="row">
                 <div class="col-md-2">
-                    <span style="color: #ff0000">*</span>
                     Modification Date :-
                 </div>
                 <div class="col-md-3">

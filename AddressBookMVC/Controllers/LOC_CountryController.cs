@@ -44,6 +44,7 @@ namespace AddressBookMVC.Controllers
         #region Add
         public IActionResult Add(int? CountryID)
         {
+            #region Select By PK
             if (CountryID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -73,6 +74,8 @@ namespace AddressBookMVC.Controllers
                 }
                 conn.Close();
             }
+            #endregion
+
             return View("LOC_CountryAddEdit");  
         }
         #endregion

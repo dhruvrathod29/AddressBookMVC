@@ -2,6 +2,7 @@
 
 namespace AddressBookMVC.Models
 {
+    #region LOC_StateModel
     public class LOC_StateModel
     {
         public int? StateID{ get; set; }
@@ -12,14 +13,15 @@ namespace AddressBookMVC.Models
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }  
 
-
-
     }
+    #endregion
 
+    #region LOC_State_SelectForDropDown
     public class LOC_State_SelectForDropDownModel
     {
         public int StateID { get; set; }
         public String StateName { get; set; }
     }
+    #endregion
 
 }

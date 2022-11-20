@@ -2,6 +2,7 @@
 
 namespace AddressBookMVC.Models
 {
+    #region CON_ContactModel
     public class CON_ContactModel
     {
         public int? ContactID { get; set; }
@@ -28,4 +29,6 @@ namespace AddressBookMVC.Models
         public DateTime ModificationDate { get; set; }
 
     }
+    #endregion
+
 }

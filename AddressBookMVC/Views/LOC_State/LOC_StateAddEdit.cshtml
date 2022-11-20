@@ -41,7 +41,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a >State List</a>
+                            <a asp-action="Index" asp-controller="LOC_State"><i class="fa-regular fa-address-book"></i> State List</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
                             State Add Edit
@@ -78,7 +78,7 @@
                     State Name :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter State Code" asp-for="StateName" class="form-control" />
+                    <input type="text" placeholder="Enter State Name" asp-for="StateName" class="form-control" />
                 </div>
             </div>
             <br />
@@ -89,7 +89,7 @@
                     State Code :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Creation Date" asp-for="StateCode" class="form-control" />
+                    <input type="text" placeholder="Enter State Code" asp-for="StateCode" class="form-control" />
                 </div>
                 <div class="col-md-1">
                 </div>

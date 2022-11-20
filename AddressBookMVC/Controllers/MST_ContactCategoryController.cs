@@ -9,14 +9,19 @@ namespace AddressBookMVC.Controllers
 {
     public class MST_ContactCategoryController : Controller
     {
+        #region Configuration
         private IConfiguration Configuration;
         public MST_ContactCategoryController(IConfiguration _configuration)
 
         {
             Configuration = _configuration;
         }
+        #endregion
+
+        #region Index
         public IActionResult Index()
         {
+            #region SelectAll
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(connectionstr);
@@ -32,11 +37,15 @@ namespace AddressBookMVC.Controllers
             conn.Close();
 
             return View("MST_ContactCategoryList", dt);
-            
-        }
+            #endregion
 
+        }
+        #endregion
+
+        #region Add
         public IActionResult Add(int? ContactCategoryID)
         {
+            #region Select By PK
             if (ContactCategoryID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -65,12 +74,17 @@ namespace AddressBookMVC.Controllers
                 }
                 conn.Close();
             }
+            #endregion
+
             return View("MST_ContactCategoryAddEdit");
         }
+        #endregion
 
+        #region Save
         [HttpPost]
         public IActionResult Save(MST_ContactCategoryModel modelMST_ContactCategory)
         {
+            #region Insert
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
             SqlConnection conn = new SqlConnection(connectionstr);
 
@@ -84,12 +98,17 @@ namespace AddressBookMVC.Controllers
                 objCmd.CommandText = "PR_MST_ContactCategory_Insert";
 
             }
+            #endregion
+
+            #region Update By PK
             else
             {
                 objCmd.CommandText = "PR_MST_ContactCategory_UpdateByPK";
                 objCmd.Parameters.Add("@ContactCategoryID", SqlDbType.Int).Value = modelMST_ContactCategory.ContactCategoryID;
 
             }
+            #endregion
+
             objCmd.Parameters.Add("@ContactCategoryName", SqlDbType.NVarChar).Value = modelMST_ContactCategory.ContactCategoryName;
             objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelMST_ContactCategory.CreationDate;
             objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelMST_ContactCategory.ModificationDate;
@@ -104,6 +123,9 @@ namespace AddressBookMVC.Controllers
             conn.Close();
             return View("MST_ContactCategoryAddEdit");
         }
+        #endregion
+
+        #region Delete
         public IActionResult Delete(int ContactCategoryID)
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -125,12 +147,13 @@ namespace AddressBookMVC.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
-        public IActionResult MST_ContactCategoryList()
+        /*public IActionResult MST_ContactCategoryList()
         {
 
 
             return View();
-        }
+        }*/
     }
 }

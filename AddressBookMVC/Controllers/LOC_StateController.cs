@@ -11,13 +11,16 @@ namespace AddressBookMVC.Controllers
 {
     public class LOC_StateController : Controller
     {
+        #region Configuration
         private IConfiguration Configuration;
         public LOC_StateController(IConfiguration _configuration)
 
         {
             Configuration = _configuration;
         }
+        #endregion
 
+        #region Index
         public IActionResult Index()
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -40,12 +43,12 @@ namespace AddressBookMVC.Controllers
             return View("LOC_StateList",dt);
 
         }
+        #endregion
 
-
-
+        #region Add
         public IActionResult Add(int? StateID)
         {
-             #region Country Drop Down
+            #region Country Drop Down
 
             string connectionstr1 = this.Configuration.GetConnectionString("myConnectionStrings");
             DataTable dt1 = new DataTable();
@@ -73,9 +76,8 @@ namespace AddressBookMVC.Controllers
             ViewBag.CountryList = list;
             conn1.Close();
             #endregion
-            
 
-
+            #region Select By PK
 
             if (StateID != null)
             {
@@ -111,14 +113,17 @@ namespace AddressBookMVC.Controllers
                
                 conn.Close();
             }
+            #endregion
+
             return View("LOC_StateAddEdit");
         }
+        #endregion
 
-     
-
+        #region Save
         [HttpPost]
         public IActionResult Save(LOC_StateModel modelLOC_State)
         {
+            #region Insert
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
             SqlConnection conn = new SqlConnection(connectionstr);
 
@@ -130,15 +135,19 @@ namespace AddressBookMVC.Controllers
             if (modelLOC_State.StateID == null)
             {
                 objCmd.CommandText = "PR_LOC_State_Insert";
-
             }
+
+            #endregion
+
+            #region Update By PK
             else
             {
                 objCmd.CommandText = "PR_LOC_State_UpdateByPK";
                 objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_State.StateID;
 
-
             }
+            #endregion
+
             objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelLOC_State.CountryID;
             objCmd.Parameters.Add("@StateName", SqlDbType.NVarChar).Value = modelLOC_State.StateName;
             objCmd.Parameters.Add("@StateCode", SqlDbType.NVarChar).Value = modelLOC_State.StateCode;
@@ -158,7 +167,9 @@ namespace AddressBookMVC.Controllers
             conn.Close();
             return RedirectToAction("Add");
         }
+        #endregion
 
+        #region Delete
         public IActionResult Delete(int StateID)
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -180,11 +191,11 @@ namespace AddressBookMVC.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
-
-        public IActionResult LOC_StateList()
+       /* public IActionResult LOC_StateList()
         {
             return View();
-        }
+        }*/
     }
 }

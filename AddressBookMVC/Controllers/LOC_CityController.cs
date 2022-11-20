@@ -8,17 +8,22 @@ using System.Collections.Generic;
 
 namespace AddressBookMVC.Controllers
 {
+    
     public class LOC_CityController : Controller
     {
+        #region Configuration
         private IConfiguration Configuration;
         public LOC_CityController(IConfiguration _configuration)
 
         {
             Configuration = _configuration;
         }
-      
+        #endregion
+
+        #region Index
         public IActionResult Index()
         {
+            #region SelectAll
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(connectionstr);
@@ -34,9 +39,11 @@ namespace AddressBookMVC.Controllers
             conn.Close();
 
             return View("LOC_CityList", dt);
-           
+            #endregion
         }
+        #endregion
 
+        #region Add
         public IActionResult Add(int? CityID)
         {
 
@@ -69,7 +76,7 @@ namespace AddressBookMVC.Controllers
             conn1.Close();
             #endregion
 
-
+            #region Select By PK
             if (CityID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -101,13 +108,17 @@ namespace AddressBookMVC.Controllers
                 }
                 conn.Close();
             }
+            #endregion
 
             return View("LOC_CityAddEdit");
         }
+        #endregion
 
+        #region Save
         [HttpPost]
         public IActionResult Save(LOC_CityModel modelLOC_City)
         {
+            #region Insert
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
             SqlConnection conn = new SqlConnection(connectionstr);
 
@@ -121,6 +132,9 @@ namespace AddressBookMVC.Controllers
                 objCmd.CommandText = "PR_LOC_City_Insert";
 
             }
+            #endregion
+
+            #region Update By PK
             else
             {
                 objCmd.CommandText = "PR_LOC_City_UpdateByPK";
@@ -128,6 +142,8 @@ namespace AddressBookMVC.Controllers
 
 
             }
+            #endregion
+
             objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_City.StateID;
             objCmd.Parameters.Add("@CityName", SqlDbType.NVarChar).Value = modelLOC_City.CityName;
             objCmd.Parameters.Add("@PinCode", SqlDbType.NVarChar).Value = modelLOC_City.PinCode;
@@ -149,9 +165,9 @@ namespace AddressBookMVC.Controllers
 
             return RedirectToAction("Add");
         }
+        #endregion
 
-       
-
+        #region Delete
         public IActionResult Delete(int CityID)
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -173,13 +189,14 @@ namespace AddressBookMVC.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
-        public IActionResult LOC_CityList()
+        /*public IActionResult LOC_CityList()
         {
 
 
             return View();
-        }
+        }*/
 
     }
 }

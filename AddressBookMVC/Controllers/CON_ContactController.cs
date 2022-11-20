@@ -8,16 +8,22 @@ using System.Collections.Generic;
 
 namespace AddressBookMVC.Controllers
 {
+   
     public class CON_ContactController : Controller
     {
+        #region Configuration
         private IConfiguration Configuration;
         public CON_ContactController(IConfiguration _configuration)
 
         {
             Configuration = _configuration;
         }
+        #endregion
+
+        #region Index
         public IActionResult Index()
         {
+            #region SelectAll
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
             DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(connectionstr);
@@ -33,8 +39,11 @@ namespace AddressBookMVC.Controllers
             conn.Close();
 
             return View("CON_ContactList", dt);
-
+            #endregion
         }
+        #endregion
+
+        #region Add
         public IActionResult Add(int? ContactID)
         {
 
@@ -152,7 +161,7 @@ namespace AddressBookMVC.Controllers
             conn4.Close();
             #endregion
 
-
+            #region Select By PK
             if (ContactID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -196,12 +205,17 @@ namespace AddressBookMVC.Controllers
                 }
                 conn.Close();
             }
+            #endregion
+
             return View("CON_ContactAddEdit");
         }
+        #endregion
 
+        #region Save
         [HttpPost]
         public IActionResult Save(CON_ContactModel modelCON_Contact)
         {
+            #region Insert
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
             SqlConnection conn = new SqlConnection(connectionstr);
 
@@ -215,12 +229,16 @@ namespace AddressBookMVC.Controllers
                 objCmd.CommandText = "PR_CON_Contact_Insert";
 
             }
+            #endregion
+
+            #region Update By PK
             else
             {
                 objCmd.CommandText = "PR_CON_Contact_UpdateByPK";
                 objCmd.Parameters.Add("@ContactID", SqlDbType.Int).Value = modelCON_Contact.ContactID;
 
             }
+            #endregion
 
             objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelCON_Contact.CountryID;
             objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelCON_Contact.StateID;
@@ -252,7 +270,9 @@ namespace AddressBookMVC.Controllers
             conn.Close();
             return RedirectToAction("Add");
         }
-        
+        #endregion
+
+        #region Delete
         public IActionResult Delete(int ContactID)
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -274,12 +294,13 @@ namespace AddressBookMVC.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion
 
-        public IActionResult CON_ContactList()
+       /* public IActionResult CON_ContactList()
         {
 
 
             return View();
-        }
+        }*/
     }
 }
