@@ -12,6 +12,11 @@ namespace AddressBookMVC.Models
         public DateTime CreationDate { get; set; }  
         public DateTime ModificationDate { get; set; }
     }
+    public class LOC_City_SelectForDropDownModel
+    {
+        public int CityID { get; set; }
+        public string CityName { get; set; }
+    }
 
-    
+
 }

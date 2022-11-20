@@ -10,4 +10,9 @@ namespace AddressBookMVC.Models
         public DateTime ModificationDate { get; set; }
 
     }
+    public class MST_ContactCategory_SelectForDropDownModel
+    {
+        public int ContactCategoryID { get; set; }
+        public string ContactCategoryName { get; set;}          
+    }
 }

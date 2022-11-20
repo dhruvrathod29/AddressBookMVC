@@ -68,16 +68,20 @@
                      Country ID :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Contact Name" asp-for="CountryID" class="form-control" />
+                    <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))" class="form-control">
+                        <option value="">Select Country</option>
+                    </select>
                 </div>
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-2">
                     <span style="color: #ff0000">*</span>
-                    State ID :-
+                    State  :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country Code" asp-for="StateID" class="form-control" />
+                    <select asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))" class="form-control">
+                        <option value="">Select State</option>
+                    </select>
                 </div>
             </div>
             <br />
@@ -89,7 +93,9 @@
                     City ID :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Contact Name" asp-for="CityID" class="form-control" />
+                    <select asp-for="CityID" asp-items="@(new SelectList(ViewBag.CityList,"CityID","CityName"))" class="form-control">
+                        <option value="">Select City</option>
+                    </select>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -98,7 +104,9 @@
                     ContactCategory ID :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country Code" asp-for="ContactCategoryID" class="form-control" />
+                    <select asp-for="ContactCategoryID" asp-items="@(new SelectList(ViewBag.ContactCategoryList,"ContactCategoryID","ContactCategoryName"))" class="form-control">
+                        <option value="">Select ContactCategory</option>
+                    </select>
                 </div>
             </div>
             <br />

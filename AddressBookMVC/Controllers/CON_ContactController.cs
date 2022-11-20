@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using AddressBookMVC.Models;
 using System;
+using System.Collections.Generic;
 
 namespace AddressBookMVC.Controllers
 {
@@ -36,6 +37,122 @@ namespace AddressBookMVC.Controllers
         }
         public IActionResult Add(int? ContactID)
         {
+
+            #region Country Drop Down
+
+            string connectionstr1 = this.Configuration.GetConnectionString("myConnectionStrings");
+            DataTable dt1 = new DataTable();
+
+            SqlConnection conn1 = new SqlConnection(connectionstr1);
+
+            conn1.Open();
+
+            SqlCommand objCmd1 = conn1.CreateCommand();
+            objCmd1.CommandType = CommandType.StoredProcedure;
+            objCmd1.CommandText = "PR_LOC_Country_SelectForDropDown";
+            SqlDataReader objSDR1 = objCmd1.ExecuteReader();
+            dt1.Load(objSDR1);
+
+
+
+            List<LOC_Country_SelectForDropDownModel> list = new List<LOC_Country_SelectForDropDownModel>();
+            foreach (DataRow dr in dt1.Rows)
+            {
+                LOC_Country_SelectForDropDownModel vlst = new LOC_Country_SelectForDropDownModel();
+                vlst.CountryID = Convert.ToInt32(dr["CountryID"]);
+                vlst.CountryName = dr["CountryName"].ToString();
+                list.Add(vlst);
+            }
+            ViewBag.CountryList = list;
+            conn1.Close();
+            #endregion
+
+            #region State Drop Down
+
+            string connectionstr2 = this.Configuration.GetConnectionString("myConnectionStrings");
+            DataTable dt2 = new DataTable();
+
+            SqlConnection conn2 = new SqlConnection(connectionstr2);
+
+            conn2.Open();
+
+            SqlCommand objCmd2 = conn2.CreateCommand();
+            objCmd2.CommandType = CommandType.StoredProcedure;
+            objCmd2.CommandText = "PR_LOC_State_SelectForDropDown";
+            SqlDataReader objSDR2 = objCmd2.ExecuteReader();
+            dt2.Load(objSDR2);
+
+
+
+            List<LOC_State_SelectForDropDownModel> list2 = new List<LOC_State_SelectForDropDownModel>();
+            foreach (DataRow dr in dt2.Rows)
+            {
+                LOC_State_SelectForDropDownModel vlst2 = new LOC_State_SelectForDropDownModel();
+                vlst2.StateID = Convert.ToInt32(dr["StateID"]);
+                vlst2.StateName = dr["StateName"].ToString();
+                list2.Add(vlst2);
+            }
+            ViewBag.StateList = list2;
+            conn2.Close();
+            #endregion
+
+            #region City Drop Down
+            string connectionstr3 = this.Configuration.GetConnectionString("myConnectionStrings");
+            DataTable dt3 = new DataTable();
+
+            SqlConnection conn3 = new SqlConnection(connectionstr3);
+
+            conn3.Open();
+
+            SqlCommand objCmd3 = conn3.CreateCommand();
+            objCmd3.CommandType = CommandType.StoredProcedure;
+            objCmd3.CommandText = "PR_LOC_City_SelectForDropDown";
+            SqlDataReader objSDR3 = objCmd3.ExecuteReader();
+            dt3.Load(objSDR3);
+
+
+
+            List<LOC_City_SelectForDropDownModel> list3 = new List<LOC_City_SelectForDropDownModel>();
+            foreach (DataRow dr in dt3.Rows)
+            {
+                LOC_City_SelectForDropDownModel vlst3 = new LOC_City_SelectForDropDownModel();
+                vlst3.CityID = Convert.ToInt32(dr["CityID"]);
+                vlst3.CityName = dr["CityName"].ToString();
+                list3.Add(vlst3);
+            }
+            ViewBag.CityList = list3;
+            conn3.Close();
+            #endregion
+
+            #region Contact Category Drop Down
+            string connectionstr4 = this.Configuration.GetConnectionString("myConnectionStrings");
+            DataTable dt4 = new DataTable();
+
+            SqlConnection conn4 = new SqlConnection(connectionstr4);
+
+            conn4.Open();
+
+            SqlCommand objCmd4 = conn4.CreateCommand();
+            objCmd4.CommandType = CommandType.StoredProcedure;
+            objCmd4.CommandText = "PR_MST_ContactCategory_SelectForDropDown";
+            SqlDataReader objSDR4 = objCmd4.ExecuteReader();
+            dt4.Load(objSDR4);
+
+
+
+            List<MST_ContactCategory_SelectForDropDownModel> list4 = new List<MST_ContactCategory_SelectForDropDownModel>();
+            foreach (DataRow dr in dt4.Rows)
+            {
+                MST_ContactCategory_SelectForDropDownModel vlst4 = new MST_ContactCategory_SelectForDropDownModel();
+                vlst4.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
+                vlst4.ContactCategoryName = dr["ContactCategoryName"].ToString();
+                list4.Add(vlst4);
+            }
+            ViewBag.ContactCategoryList = list4;
+            conn4.Close();
+            #endregion
+
+
             if (ContactID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -133,7 +250,7 @@ namespace AddressBookMVC.Controllers
                     TempData["ContactInsertMessage"] = "Record Update Successfully";
             }
             conn.Close();
-            return View("CON_ContactAddEdit");
+            return RedirectToAction("Add");
         }
         
         public IActionResult Delete(int ContactID)
