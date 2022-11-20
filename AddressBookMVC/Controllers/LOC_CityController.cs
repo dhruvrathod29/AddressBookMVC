@@ -86,7 +86,7 @@ namespace AddressBookMVC.Controllers
 
             if (modelLOC_City.CityID == null)
             {
-                 objCmd.CommandText = "PR_LOC_City_Insert";
+                objCmd.CommandText = "PR_LOC_City_Insert";
 
             }
             else
@@ -94,13 +94,14 @@ namespace AddressBookMVC.Controllers
                 objCmd.CommandText = "PR_LOC_City_UpdateByPK";
                 objCmd.Parameters.Add("@CityID", SqlDbType.Int).Value = modelLOC_City.CityID;
 
-            }
 
+            }
             objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_City.StateID;
             objCmd.Parameters.Add("@CityName", SqlDbType.NVarChar).Value = modelLOC_City.CityName;
             objCmd.Parameters.Add("@PinCode", SqlDbType.NVarChar).Value = modelLOC_City.PinCode;
             objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelLOC_City.CreationDate;
             objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelLOC_City.ModificationDate;
+
 
             if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
             {
@@ -112,6 +113,8 @@ namespace AddressBookMVC.Controllers
             }
 
             conn.Close();
+
+
             return View("LOC_CityAddEdit");
         }
 
