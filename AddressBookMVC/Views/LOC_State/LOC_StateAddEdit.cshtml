@@ -56,7 +56,7 @@
 
 
     <div class="container">
-        <h5 style="color:green"><label>@TempData["StateInsertMessage"] </label></h5>
+        <h5 style="color:green"><label>@TempData["StateInsertMessage"]</label></h5>
         <br />
         <form method="post" asp-controller="LOC_State" asp-action="Save">
             @Html.HiddenFor(x=>x.StateID)

@@ -1,5 +1,5 @@
 ﻿using AddressBookMVC.Models;
-using AspNetCore;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -45,9 +45,11 @@ namespace AddressBookMVC.Controllers
 
         public IActionResult Add(int? StateID)
         {
-            #region Country Drop Down
+             #region Country Drop Down
 
             string connectionstr1 = this.Configuration.GetConnectionString("myConnectionStrings");
+            DataTable dt1 = new DataTable();
+
             SqlConnection conn1 = new SqlConnection(connectionstr1);
 
             conn1.Open();
@@ -55,11 +57,10 @@ namespace AddressBookMVC.Controllers
             SqlCommand objCmd1 = conn1.CreateCommand();
             objCmd1.CommandType = CommandType.StoredProcedure;
             objCmd1.CommandText = "PR_LOC_Country_SelectForDropDown";
-            DataTable dt1 = new DataTable();
             SqlDataReader objSDR1 = objCmd1.ExecuteReader();
             dt1.Load(objSDR1);
 
-            conn1.Close();
+          
 
             List<LOC_Country_SelectForDropDownModel> list = new List<LOC_Country_SelectForDropDownModel>();
             foreach (DataRow dr in dt1.Rows)
@@ -69,9 +70,10 @@ namespace AddressBookMVC.Controllers
                 vlst.CountryName = dr["CountryName"].ToString();
                 list.Add(vlst); 
             }
-            ViewBag.CountryList = list;  
+            ViewBag.CountryList = list;
+            conn1.Close();
             #endregion
-
+            
 
 
 
@@ -91,8 +93,7 @@ namespace AddressBookMVC.Controllers
                 dt.Load(objSDR);
 
 
-                if (dt.Rows.Count > 0)
-                {
+                
                     LOC_StateModel modelLOC_State = new LOC_StateModel();
 
                     foreach (DataRow dr in dt.Rows)
@@ -106,7 +107,7 @@ namespace AddressBookMVC.Controllers
 
                         return View("LOC_StateAddEdit", modelLOC_State);
                     }
-                }
+                
                
                 conn.Close();
             }
@@ -155,7 +156,7 @@ namespace AddressBookMVC.Controllers
             }
 
             conn.Close();
-            return View("LOC_StateAddEdit");
+            return RedirectToAction("Add");
         }
 
         public IActionResult Delete(int StateID)
