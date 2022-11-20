@@ -14,4 +14,10 @@ namespace AddressBookMVC.Models
 
 
     }
+
+    public class LOC_Country_SelectForDropDownModel
+    {
+        public int CountryID { get; set; }
+        public string CountryName { get; set; }
+    }
 }

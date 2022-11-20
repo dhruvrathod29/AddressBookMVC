@@ -1,7 +1,9 @@
 ﻿using AddressBookMVC.Models;
+using AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -43,6 +45,36 @@ namespace AddressBookMVC.Controllers
 
         public IActionResult Add(int? StateID)
         {
+            #region Country Drop Down
+
+            string connectionstr1 = this.Configuration.GetConnectionString("myConnectionStrings");
+            SqlConnection conn1 = new SqlConnection(connectionstr1);
+
+            conn1.Open();
+
+            SqlCommand objCmd1 = conn1.CreateCommand();
+            objCmd1.CommandType = CommandType.StoredProcedure;
+            objCmd1.CommandText = "PR_LOC_Country_SelectForDropDown";
+            DataTable dt1 = new DataTable();
+            SqlDataReader objSDR1 = objCmd1.ExecuteReader();
+            dt1.Load(objSDR1);
+
+            conn1.Close();
+
+            List<LOC_Country_SelectForDropDownModel> list = new List<LOC_Country_SelectForDropDownModel>();
+            foreach (DataRow dr in dt1.Rows)
+            {
+                LOC_Country_SelectForDropDownModel vlst = new LOC_Country_SelectForDropDownModel(); 
+                vlst.CountryID = Convert.ToInt32(dr["CountryID"]);
+                vlst.CountryName = dr["CountryName"].ToString();
+                list.Add(vlst); 
+            }
+            ViewBag.CountryList = list;  
+            #endregion
+
+
+
+
             if (StateID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -58,19 +90,24 @@ namespace AddressBookMVC.Controllers
                 SqlDataReader objSDR = objCmd.ExecuteReader();
                 dt.Load(objSDR);
 
-                LOC_StateModel modelLOC_State = new LOC_StateModel();
 
-                foreach (DataRow dr in dt.Rows)
+                if (dt.Rows.Count > 0)
                 {
-                    modelLOC_State.CountryID = Convert.ToInt32(dr["CountryID"]);
-                    modelLOC_State.StateID = Convert.ToInt32(dr["StateID"]);
-                    modelLOC_State.StateName = dr["StateName"].ToString();
-                    modelLOC_State.StateCode = dr["StateCode"].ToString();
-                    modelLOC_State.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
-                    modelLOC_State.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+                    LOC_StateModel modelLOC_State = new LOC_StateModel();
 
-                    return View("LOC_StateAddEdit", modelLOC_State);
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        modelLOC_State.CountryID = Convert.ToInt32(dr["CountryID"]);
+                        modelLOC_State.StateID = Convert.ToInt32(dr["StateID"]);
+                        modelLOC_State.StateName = dr["StateName"].ToString();
+                        modelLOC_State.StateCode = dr["StateCode"].ToString();
+                        modelLOC_State.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
+                        modelLOC_State.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+
+                        return View("LOC_StateAddEdit", modelLOC_State);
+                    }
                 }
+               
                 conn.Close();
             }
             return View("LOC_StateAddEdit");

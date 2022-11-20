@@ -67,7 +67,9 @@
                     Country ID :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country ID" asp-for="CountryID" class="form-control" />
+                    <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
+                        <option value="">Select Country</option>
+                    </select>
                 </div>
                 <div class="col-md-1">
                 </div>
