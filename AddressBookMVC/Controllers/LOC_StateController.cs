@@ -94,20 +94,20 @@ namespace AddressBookMVC.Controllers
 
 
                 
-                    LOC_StateModel modelLOC_State = new LOC_StateModel();
+                LOC_StateModel modelLOC_State = new LOC_StateModel();
 
-                    foreach (DataRow dr in dt.Rows)
-                    {
-                        modelLOC_State.CountryID = Convert.ToInt32(dr["CountryID"]);
-                        modelLOC_State.StateID = Convert.ToInt32(dr["StateID"]);
-                        modelLOC_State.StateName = dr["StateName"].ToString();
-                        modelLOC_State.StateCode = dr["StateCode"].ToString();
-                        modelLOC_State.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
-                        modelLOC_State.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+                foreach (DataRow dr in dt.Rows)
+                {
+                    modelLOC_State.CountryID = Convert.ToInt32(dr["CountryID"]);
+                    modelLOC_State.StateID = Convert.ToInt32(dr["StateID"]);
+                    modelLOC_State.StateName = dr["StateName"].ToString();
+                    modelLOC_State.StateCode = dr["StateCode"].ToString();
+                    modelLOC_State.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
+                    modelLOC_State.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
 
-                        return View("LOC_StateAddEdit", modelLOC_State);
-                    }
-                
+                    return View("LOC_StateAddEdit", modelLOC_State);
+                }
+               
                
                 conn.Close();
             }

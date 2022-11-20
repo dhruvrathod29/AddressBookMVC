@@ -67,6 +67,8 @@
 
         <thead>
             <tr>
+                <th>Contact Category ID</th>
+
                 <th>Contact Category Name</th>
                 <th>Creation Date</th>
                 <th>Modification Date</th>
@@ -79,6 +81,8 @@
             @foreach (DataRow dr in Model.Rows)
             {
                 <tr>
+                    <td>@dr["ContactCategoryID"]</td>
+
                     <td>@dr["ContactCategoryName"]</td>
                   
                     <td>@Convert.ToDateTime(dr["CreationDate"]).ToString("dd-MM-yyyy")</td>

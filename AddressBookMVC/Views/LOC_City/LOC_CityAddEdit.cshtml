@@ -66,10 +66,12 @@
 
                 <div class="col-md-2">
                     <span style="color: #ff0000">*</span>
-                    State ID :-
+                    State  :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter State ID" asp-for="StateID" class="form-control" />
+                    <select asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))" class="form-control">
+                        <option value="">Select State</option>
+                    </select>
                 </div>
                 <div class="col-md-1">
                 </div>

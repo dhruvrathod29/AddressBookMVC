@@ -64,10 +64,10 @@
 
                 <div class="col-md-2">
                     <span style="color: #ff0000">*</span>
-                    Country ID :-
+                    Country :-
                 </div>
                 <div class="col-md-3">
-                    <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))">
+                    <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))" class="form-control">
                         <option value="">Select Country</option>
                     </select>
                 </div>

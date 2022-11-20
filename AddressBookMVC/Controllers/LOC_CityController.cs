@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using AddressBookMVC.Models;
 using System;
+using System.Collections.Generic;
 
 namespace AddressBookMVC.Controllers
 {
@@ -38,6 +39,37 @@ namespace AddressBookMVC.Controllers
 
         public IActionResult Add(int? CityID)
         {
+
+            #region State Drop Down
+
+            string connectionstr1 = this.Configuration.GetConnectionString("myConnectionStrings");
+            DataTable dt1 = new DataTable();
+
+            SqlConnection conn1 = new SqlConnection(connectionstr1);
+
+            conn1.Open();
+
+            SqlCommand objCmd1 = conn1.CreateCommand();
+            objCmd1.CommandType = CommandType.StoredProcedure;
+            objCmd1.CommandText = "PR_LOC_State_SelectForDropDown";
+            SqlDataReader objSDR1 = objCmd1.ExecuteReader();
+            dt1.Load(objSDR1);
+
+
+
+            List<LOC_State_SelectForDropDownModel> list = new List<LOC_State_SelectForDropDownModel>();
+            foreach (DataRow dr in dt1.Rows)
+            {
+                LOC_State_SelectForDropDownModel vlst = new LOC_State_SelectForDropDownModel();
+                vlst.StateID = Convert.ToInt32(dr["StateID"]);
+                vlst.StateName = dr["StateName"].ToString();
+                list.Add(vlst);
+            }
+            ViewBag.StateList = list;
+            conn1.Close();
+            #endregion
+
+
             if (CityID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -115,7 +147,7 @@ namespace AddressBookMVC.Controllers
             conn.Close();
 
 
-            return View("LOC_CityAddEdit");
+            return RedirectToAction("Add");
         }
 
        
