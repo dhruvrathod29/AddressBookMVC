@@ -21,6 +21,8 @@ namespace AddressBookMVC.Controllers
         #endregion
 
         #region Index
+
+        #region Select All
         public IActionResult Index()
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -39,6 +41,8 @@ namespace AddressBookMVC.Controllers
             
             return View("LOC_CountryList",dt);
         }
+        #endregion
+
         #endregion
 
         #region Add

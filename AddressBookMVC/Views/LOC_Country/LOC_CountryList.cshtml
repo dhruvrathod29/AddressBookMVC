@@ -97,7 +97,7 @@
                         &nbsp;
                         &nbsp;
 
-                         <form method="post" asp-controller="LOC_Country" asp-action="Add">
+                         <form method="post" asp-controller="LOC_Country" asp-action="Add" asp-route-CountryID="@Convert.ToInt32(dr["CountryID"])">
                              <input type="hidden" name="CountryID" value="@Convert.ToInt32(dr["CountryID"].ToString())">
                              <button type="submit" class="btn btn-a">
                             <i class="fa-solid fa-pen-to-square"></i>
