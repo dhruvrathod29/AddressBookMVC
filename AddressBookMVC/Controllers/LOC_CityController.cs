@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace AddressBookMVC.Controllers
 {
-    
+
     public class LOC_CityController : Controller
     {
         #region Configuration
@@ -85,6 +85,7 @@ namespace AddressBookMVC.Controllers
 
 
             #region Select By PK
+
             if (CityID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -104,7 +105,7 @@ namespace AddressBookMVC.Controllers
 
                 foreach (DataRow dr in dt.Rows)
                 {
-
+                    DropDownByCountry(Convert.ToInt32(dr["CountryID"]));
                     modelLOC_City.StateID = Convert.ToInt32(dr["StateID"]);
                     modelLOC_City.CityID = Convert.ToInt32(dr["CityID"]);
                     modelLOC_City.CountryID = Convert.ToInt32(dr["CountryID"]);
@@ -233,6 +234,7 @@ namespace AddressBookMVC.Controllers
                 vlst.StateName = dr["StateName"].ToString();
                 list1.Add(vlst);
             }
+            ViewBag.StateList = list1;
             var vModel = list1;
             return Json(vModel);
             
