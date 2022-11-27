@@ -59,8 +59,9 @@
     <div class="container">
         <h5 style="color:green"><label>@TempData["ContactInsertMessage"]</label></h5>
         <br />
-        <form method="post" asp-controller="CON_Contact" asp-action="Save">
+        <form method="post" asp-controller="CON_Contact" asp-action="Save" enctype="multipart/form-data">
             @Html.HiddenFor(x=>x.ContactID)
+            @Html.HiddenFor(x=>x.PhotoPath)
             <div class="row">
 
                 <div class="col-md-2">
@@ -238,7 +239,15 @@
                 <div class="col-md-3">
                     <input type="date" placeholder="Enter Modification Date" asp-for="ModificationDate" class="form-control" />
                 </div>
-                
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-2">
+                    <span style="color: #ff0000">*</span>
+                    Photo Upload  :-
+                </div>
+                <div class="col-md-3">
+                    <input type="file" placeholder="Upload Photo" asp-for="File" class="form-control" />
+                </div>
             </div>
             <br />
             <div class="row">

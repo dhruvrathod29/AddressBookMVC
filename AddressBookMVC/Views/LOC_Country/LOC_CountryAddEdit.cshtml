@@ -25,7 +25,6 @@
     }
 
         .btn.btn-b:hover {
-            
             background-color: rgba(255,0,0, 1);
             color: #ffffff;
         }
@@ -60,9 +59,17 @@
 
 
     <div class="container">
-        <h5 style="color:green"><label>@TempData["CountryInsertMessage"]</label></h5>
+
+        @if (TempData["CountryInsertMessage"] != null)
+        {
+            <div class="alert alert-success  alert-dismissible fade show" role="alert">
+                <i class="fa-solid fa-circle-check"></i><strong> Country details! </strong><label>@TempData["CountryInsertMessage"]</label>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            @*<label class="alert alert-success alert-dismissible fade show" role="alert"></label>*@
+        }
         <br />
-        
         <form method="post" asp-controller="LOC_Country" asp-action="Save">
             @Html.HiddenFor(x=>x.CountryID)
             <div class="row">
@@ -71,7 +78,8 @@
                     Country Name :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country Name" asp-for="CountryName" class="form-control" />
+                    <input type="text" placeholder="Enter Country Name" required asp-for="CountryName" class="form-control" />
+                    <span asp-validation-for="CountryName" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -80,14 +88,15 @@
                     Country Code :-
                 </div>
                 <div class="col-md-3">
-                    <input type="text" placeholder="Enter Country Code" asp-for="CountryCode" class="form-control" />
+                    <input type="text" placeholder="Enter Country Code" required asp-for="CountryCode" class="form-control" />
+                    <span asp-validation-for="CountryCode" class="text-danger"></span>
                 </div>
             </div>
             <br />
 
             <div class="row">
                 <div class="col-md-2">
-                   
+
                     Creation Date :-
                 </div>
                 <div class="col-md-3">
@@ -96,13 +105,13 @@
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-2">
-                   
+
                     Modification Date :-
                 </div>
                 <div class="col-md-3">
                     <input type="date" placeholder="Enter Modification Date" asp-for="ModificationDate" class="form-control" />
                 </div>
-            </div>     
+            </div>
             <br />
             <div class="row">
                 <div class="col-md-5">
@@ -110,12 +119,16 @@
                 <div class="col-md-1">
                     <input type="submit" value="Save" class="btn btn-a" />
                 </div>
-               
+
                 <div class="col-md-1">
-                    <input type="submit" value="Cancel" asp-controller="LOC_Country" asp-action="Index" class="btn btn-b" />
+
+                    <a class="btn btn-b" type="submit" value="Cancel" asp-controller="LOC_Country" asp-action="Index">
+                        Cancel
+                    </a>
+
                 </div>
             </div>
         </form>
-       
+
     </div>
 </section><!-- End Intro Single-->

@@ -6,6 +6,7 @@ using AddressBookMVC.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.IO;
 
 namespace AddressBookMVC.Controllers
 {
@@ -151,6 +152,8 @@ namespace AddressBookMVC.Controllers
                     modelCON_ContactModel.Insta = dr["Insta"].ToString();
                     modelCON_ContactModel.Gender = dr["Gender"].ToString();
 
+                    modelCON_ContactModel.PhotoPath = dr["PhotoPath"].ToString();
+
                     modelCON_ContactModel.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
                     modelCON_ContactModel.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
 
@@ -182,15 +185,37 @@ namespace AddressBookMVC.Controllers
                 objCmd.CommandText = "PR_CON_Contact_Insert";
 
             }
-            #endregion
-
-            #region Update By PK
             else
             {
                 objCmd.CommandText = "PR_CON_Contact_UpdateByPK";
                 objCmd.Parameters.Add("@ContactID", SqlDbType.Int).Value = modelCON_Contact.ContactID;
 
             }
+            #endregion
+
+
+            #region PhotoPath
+            if (modelCON_Contact.File != null)
+            {
+                string FilePath = "wwwroot\\Upload";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+               
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                string fileNameWithPath = Path.Combine(path, modelCON_Contact.File.FileName);
+                modelCON_Contact.PhotoPath = "~" + FilePath.Replace("wwwroot\\","/")+"/" + modelCON_Contact.File.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    modelCON_Contact.File.CopyTo(stream);
+                }
+                
+            }
+            #endregion
+
+            #region Update By PK
+            
             #endregion
 
             objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelCON_Contact.CountryID;
@@ -208,6 +233,7 @@ namespace AddressBookMVC.Controllers
             objCmd.Parameters.Add("@Twitter", SqlDbType.NVarChar).Value = modelCON_Contact.Twitter;
             objCmd.Parameters.Add("@Insta", SqlDbType.NVarChar).Value = modelCON_Contact.Insta;
             objCmd.Parameters.Add("@Gender", SqlDbType.NVarChar).Value = modelCON_Contact.Gender;
+            objCmd.Parameters.Add("@PhotoPath", SqlDbType.NVarChar).Value = modelCON_Contact.PhotoPath;
 
 
             objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelCON_Contact.CreationDate;

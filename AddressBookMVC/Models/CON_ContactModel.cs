@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace AddressBookMVC.Models
 {
@@ -25,8 +26,13 @@ namespace AddressBookMVC.Models
         public string Twitter { get; set; }
         public string Insta { get; set; }
         public string Gender { get; set; }
+
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
+
+        public IFormFile File { get; set; }
+        public string PhotoPath { get; set; }
+
 
     }
     #endregion
