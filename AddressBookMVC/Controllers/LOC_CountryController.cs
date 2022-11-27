@@ -124,13 +124,12 @@ namespace AddressBookMVC.Controllers
                     else
                         TempData["CountryInsertMessage"] = "Record Update Successfully";
 
-
                 }
 
                 conn.Close();
             }
            
-            return View("LOC_CountryAddEdit");
+            return View("LOC_CountryAddEdit");  
         }
         #endregion
 

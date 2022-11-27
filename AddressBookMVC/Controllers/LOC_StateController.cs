@@ -123,48 +123,54 @@ namespace AddressBookMVC.Controllers
         [HttpPost]
         public IActionResult Save(LOC_StateModel modelLOC_State)
         {
+
             #region Insert
-            string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-            SqlConnection conn = new SqlConnection(connectionstr);
 
-            conn.Open();
-
-            SqlCommand objCmd = conn.CreateCommand();
-            objCmd.CommandType = CommandType.StoredProcedure;
-
-            if (modelLOC_State.StateID == null)
+            if (ModelState.IsValid)
             {
-                objCmd.CommandText = "PR_LOC_State_Insert";
-            }
+                string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+                SqlConnection conn = new SqlConnection(connectionstr);
 
-            #endregion
+                conn.Open();
 
-            #region Update By PK
-            else
-            {
-                objCmd.CommandText = "PR_LOC_State_UpdateByPK";
-                objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_State.StateID;
+                SqlCommand objCmd = conn.CreateCommand();
+                objCmd.CommandType = CommandType.StoredProcedure;
 
-            }
-            #endregion
-
-            objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelLOC_State.CountryID;
-            objCmd.Parameters.Add("@StateName", SqlDbType.NVarChar).Value = modelLOC_State.StateName;
-            objCmd.Parameters.Add("@StateCode", SqlDbType.NVarChar).Value = modelLOC_State.StateCode;
-            objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelLOC_State.CreationDate;
-            objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelLOC_State.ModificationDate;
-
-
-            if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
-            {
                 if (modelLOC_State.StateID == null)
-                    TempData["StateInsertMessage"] = "Record Insert Successfully";
+                {
+                    objCmd.CommandText = "PR_LOC_State_Insert";
+                }
+
+                #endregion
+
+                #region Update By PK
                 else
-                    TempData["StateInsertMessage"] = "Record Update Successfully";
+                {
+                    objCmd.CommandText = "PR_LOC_State_UpdateByPK";
+                    objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_State.StateID;
 
+                }
+                #endregion
+
+                objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelLOC_State.CountryID;
+                objCmd.Parameters.Add("@StateName", SqlDbType.NVarChar).Value = modelLOC_State.StateName;
+                objCmd.Parameters.Add("@StateCode", SqlDbType.NVarChar).Value = modelLOC_State.StateCode;
+                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelLOC_State.CreationDate;
+                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelLOC_State.ModificationDate;
+
+
+                if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
+                {
+                    if (modelLOC_State.StateID == null)
+                        TempData["StateInsertMessage"] = "Record Insert Successfully";
+                    else
+                        TempData["StateInsertMessage"] = "Record Update Successfully";
+
+                }
+
+                conn.Close();
             }
-
-            conn.Close();
+            
             return RedirectToAction("Add");
         }
         #endregion
