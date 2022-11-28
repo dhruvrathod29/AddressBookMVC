@@ -26,8 +26,8 @@ namespace AddressBookMVC.Models
         [DisplayName("State Code")] 
         public string StateCode { get; set; }   
         
-        public DateTime CreationDate { get; set; }
-        public DateTime ModificationDate { get; set; }  
+        public DateTime? CreationDate { get; set; }
+        public DateTime? ModificationDate { get; set; }  
 
     }
     #endregion
