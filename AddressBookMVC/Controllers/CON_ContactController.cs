@@ -238,8 +238,8 @@ namespace AddressBookMVC.Controllers
                 objCmd.Parameters.Add("@PhotoPath", SqlDbType.NVarChar).Value = modelCON_Contact.PhotoPath;
 
 
-                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelCON_Contact.CreationDate;
-                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelCON_Contact.ModificationDate;
+                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DBNull.Value;
+                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = DBNull.Value;
 
                 if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
                 {

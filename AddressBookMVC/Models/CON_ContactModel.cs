@@ -27,8 +27,8 @@ namespace AddressBookMVC.Models
         public string Insta { get; set; }
         public string Gender { get; set; }
 
-        public DateTime CreationDate { get; set; }
-        public DateTime ModificationDate { get; set; }
+        public DateTime? CreationDate { get; set; }
+        public DateTime? ModificationDate { get; set; }
 
         public IFormFile File { get; set; }
         public string PhotoPath { get; set; }
