@@ -22,7 +22,7 @@ namespace AddressBookMVC.Models
         public string AlternetContact { get; set; }
         public string Email { get; set; }
         public DateTime BirthDate { get; set; }
-        public string LinkedIn { get; set; }
+        public string? LinkedIn { get; set; }
         public string Twitter { get; set; }
         public string Insta { get; set; }
         public string Gender { get; set; }

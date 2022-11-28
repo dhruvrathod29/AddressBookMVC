@@ -112,8 +112,8 @@ namespace AddressBookMVC.Controllers
 
                 objCmd.Parameters.Add("@CountryName", SqlDbType.NVarChar).Value = modelLOC_Country.CountryName;
                 objCmd.Parameters.Add("@CountryCode", SqlDbType.NVarChar).Value = modelLOC_Country.CountryCode;
-                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelLOC_Country.CreationDate;
-                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelLOC_Country.ModificationDate;
+                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DBNull.Value;
+                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = DBNull.Value;
 
 
                 if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))

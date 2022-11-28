@@ -70,6 +70,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter Contact Category Name" asp-for="ContactCategoryName" class="form-control" />
+                    <span asp-validation-for="ContactCategoryName" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -101,7 +102,9 @@
                 </div>
                 
                 <div class="col-md-1">
-                    <input type="submit" value="Cancel" class="btn btn-b" />
+                    <a class="btn btn-b" asp-action="Index" asp-controller="MST_ContactCategory">
+                        Cancel
+                    </a>
                 </div>
             </div>
         </form>

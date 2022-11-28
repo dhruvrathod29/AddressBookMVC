@@ -171,82 +171,86 @@ namespace AddressBookMVC.Controllers
         [HttpPost]
         public IActionResult Save(CON_ContactModel modelCON_Contact)
         {
-            #region Insert
-            string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-            SqlConnection conn = new SqlConnection(connectionstr);
-
-            conn.Open();
-
-            SqlCommand objCmd = conn.CreateCommand();
-            objCmd.CommandType = CommandType.StoredProcedure;
-
-            if (modelCON_Contact.ContactID == null)
+            if (ModelState.IsValid)
             {
-                objCmd.CommandText = "PR_CON_Contact_Insert";
+                #region Insert
+                string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+                SqlConnection conn = new SqlConnection(connectionstr);
 
-            }
-            else
-            {
-                objCmd.CommandText = "PR_CON_Contact_UpdateByPK";
-                objCmd.Parameters.Add("@ContactID", SqlDbType.Int).Value = modelCON_Contact.ContactID;
+                conn.Open();
 
-            }
-            #endregion
+                SqlCommand objCmd = conn.CreateCommand();
+                objCmd.CommandType = CommandType.StoredProcedure;
 
-
-            #region PhotoPath
-            if (modelCON_Contact.File != null)
-            {
-                string FilePath = "wwwroot\\Upload";
-                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
-               
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-
-                string fileNameWithPath = Path.Combine(path, modelCON_Contact.File.FileName);
-                modelCON_Contact.PhotoPath = "~" + FilePath.Replace("wwwroot\\","/")+"/" + modelCON_Contact.File.FileName;
-
-                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
-                {
-                    modelCON_Contact.File.CopyTo(stream);
-                }
-                
-            }
-            #endregion
-
-            #region Update By PK
-            
-            #endregion
-
-            objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelCON_Contact.CountryID;
-            objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelCON_Contact.StateID;
-            objCmd.Parameters.Add("@CityID", SqlDbType.Int).Value = modelCON_Contact.CityID;
-            objCmd.Parameters.Add("@ContactCategoryID", SqlDbType.Int).Value = modelCON_Contact.ContactCategoryID;
-            objCmd.Parameters.Add("@ContactName", SqlDbType.NVarChar).Value = modelCON_Contact.ContactName;
-            objCmd.Parameters.Add("@Address", SqlDbType.NVarChar).Value = modelCON_Contact.Address;
-            objCmd.Parameters.Add("@PinCode", SqlDbType.NVarChar).Value = modelCON_Contact.PinCode;
-            objCmd.Parameters.Add("@MobileNo", SqlDbType.NVarChar).Value = modelCON_Contact.MobileNo;
-            objCmd.Parameters.Add("@AlternetContact", SqlDbType.NVarChar).Value = modelCON_Contact.AlternetContact;
-            objCmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = modelCON_Contact.Email;
-            objCmd.Parameters.Add("@BirthDate", SqlDbType.Date).Value = modelCON_Contact.BirthDate;
-            objCmd.Parameters.Add("@LinkedIn", SqlDbType.NVarChar).Value = modelCON_Contact.LinkedIn;
-            objCmd.Parameters.Add("@Twitter", SqlDbType.NVarChar).Value = modelCON_Contact.Twitter;
-            objCmd.Parameters.Add("@Insta", SqlDbType.NVarChar).Value = modelCON_Contact.Insta;
-            objCmd.Parameters.Add("@Gender", SqlDbType.NVarChar).Value = modelCON_Contact.Gender;
-            objCmd.Parameters.Add("@PhotoPath", SqlDbType.NVarChar).Value = modelCON_Contact.PhotoPath;
-
-
-            objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelCON_Contact.CreationDate;
-            objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelCON_Contact.ModificationDate;
-
-            if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
-            {
                 if (modelCON_Contact.ContactID == null)
-                    TempData["ContactInsertMessage"] = "Record Insert Successfully";
+                {
+                    objCmd.CommandText = "PR_CON_Contact_Insert";
+
+                }
                 else
-                    TempData["ContactInsertMessage"] = "Record Update Successfully";
+                {
+                    objCmd.CommandText = "PR_CON_Contact_UpdateByPK";
+                    objCmd.Parameters.Add("@ContactID", SqlDbType.Int).Value = modelCON_Contact.ContactID;
+
+                }
+                #endregion
+
+
+                #region PhotoPath
+                if (modelCON_Contact.File != null)
+                {
+                    string FilePath = "wwwroot\\Upload";
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                    if (!Directory.Exists(path))
+                        Directory.CreateDirectory(path);
+
+                    string fileNameWithPath = Path.Combine(path, modelCON_Contact.File.FileName);
+                    modelCON_Contact.PhotoPath = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + modelCON_Contact.File.FileName;
+
+                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                    {
+                        modelCON_Contact.File.CopyTo(stream);
+                    }
+
+                }
+                #endregion
+
+                #region Update By PK
+
+                #endregion
+
+                objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelCON_Contact.CountryID;
+                objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelCON_Contact.StateID;
+                objCmd.Parameters.Add("@CityID", SqlDbType.Int).Value = modelCON_Contact.CityID;
+                objCmd.Parameters.Add("@ContactCategoryID", SqlDbType.Int).Value = modelCON_Contact.ContactCategoryID;
+                objCmd.Parameters.Add("@ContactName", SqlDbType.NVarChar).Value = modelCON_Contact.ContactName;
+                objCmd.Parameters.Add("@Address", SqlDbType.NVarChar).Value = modelCON_Contact.Address;
+                objCmd.Parameters.Add("@PinCode", SqlDbType.NVarChar).Value = modelCON_Contact.PinCode;
+                objCmd.Parameters.Add("@MobileNo", SqlDbType.NVarChar).Value = modelCON_Contact.MobileNo;
+                objCmd.Parameters.Add("@AlternetContact", SqlDbType.NVarChar).Value = modelCON_Contact.AlternetContact;
+                objCmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = modelCON_Contact.Email;
+                objCmd.Parameters.Add("@BirthDate", SqlDbType.Date).Value = modelCON_Contact.BirthDate;
+                objCmd.Parameters.Add("@LinkedIn", SqlDbType.NVarChar).Value = modelCON_Contact.LinkedIn;
+                objCmd.Parameters.Add("@Twitter", SqlDbType.NVarChar).Value = modelCON_Contact.Twitter;
+                objCmd.Parameters.Add("@Insta", SqlDbType.NVarChar).Value = modelCON_Contact.Insta;
+                objCmd.Parameters.Add("@Gender", SqlDbType.NVarChar).Value = modelCON_Contact.Gender;
+                objCmd.Parameters.Add("@PhotoPath", SqlDbType.NVarChar).Value = modelCON_Contact.PhotoPath;
+
+
+                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelCON_Contact.CreationDate;
+                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelCON_Contact.ModificationDate;
+
+                if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
+                {
+                    if (modelCON_Contact.ContactID == null)
+                        TempData["ContactInsertMessage"] = "Record Insert Successfully";
+                    else
+                        TempData["ContactInsertMessage"] = "Record Update Successfully";
+                }
+                conn.Close();
             }
-            conn.Close();
+           
             return RedirectToAction("Add");
         }
         #endregion
