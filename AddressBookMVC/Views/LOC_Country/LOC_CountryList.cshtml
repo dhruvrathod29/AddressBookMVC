@@ -84,7 +84,7 @@
 
     <thead>
         <tr>
-            <th>CountryID</th>
+      
             <th>Country Name</th>
             <th>Country Code</th>
             <th>Creation Date</th>
@@ -98,7 +98,7 @@
         @foreach(DataRow dr in Model.Rows) 
         {
             <tr>
-                <td>@dr["CountryID"]</td>
+                
                 <td>@dr["CountryName"]</td>
                 <td>@dr["CountryCode"]</td>
                 <td>@Convert.ToDateTime(dr["CreationDate"]).ToString("dd-MM-yyyy")</td>

@@ -74,6 +74,7 @@
                     <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))" class="form-control" onchange="stateChange()">
                         <option value="">Select Country</option>
                     </select>
+                    <span asp-validation-for="CountryID" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -84,6 +85,7 @@
                     <select asp-for="StateID" asp-items="@(new SelectList(ViewBag.StateList,"StateID","StateName"))" class="form-control">
                         <option value="">Select State</option>
                     </select>
+                    <span asp-validation-for="StateID" class="text-danger"></span>
                 </div>
             </div>
             <br />
@@ -98,6 +100,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter City Name" asp-for="CityName" class="form-control" />
+                    <span asp-validation-for="CityName" class="text-danger"></span>
 
                 </div>
                 <div class="col-md-1">
@@ -108,6 +111,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter Pin Code" asp-for="PinCode" class="form-control" />
+                    <span asp-validation-for="PinCode" class="text-danger"></span>
 
                 </div>
             </div>
@@ -143,7 +147,10 @@
                 </div>
                 
                 <div class="col-md-1">
-                    <input type="submit" value="Cancel" class="btn btn-b" />
+                    <a class="btn btn-b" asp-action="Index" asp-controller="LOC_City">
+                        Cancel
+                    </a>
+                  
                 </div>
             </div>
         </form>

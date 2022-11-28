@@ -70,6 +70,7 @@
                     <select asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList,"CountryID","CountryName"))" class="form-control">
                         <option value="">Select Country</option>
                     </select>
+                    <span asp-validation-for="CountryID" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -79,6 +80,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter State Name" asp-for="StateName" class="form-control" />
+                    <span asp-validation-for="StateName" class="text-danger"></span>
                 </div>
             </div>
             <br />
@@ -90,6 +92,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter State Code" asp-for="StateCode" class="form-control" />
+                    <span asp-validation-for="StateCode" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -127,7 +130,9 @@
                 </div>
                 
                 <div class="col-md-1">
-                    <input type="submit" value="Cancel" class="btn btn-b" />
+                    <a class="btn btn-b" asp-action="Index" asp-controller="LOC_State">
+                        Cancel
+                    </a>
                 </div>
             </div>
         </form>

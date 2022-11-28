@@ -130,50 +130,55 @@ namespace AddressBookMVC.Controllers
         [HttpPost]
         public IActionResult Save(LOC_CityModel modelLOC_City)
         {
-            #region Insert
-            string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-            SqlConnection conn = new SqlConnection(connectionstr);
 
-            conn.Open();
-
-            SqlCommand objCmd = conn.CreateCommand();
-            objCmd.CommandType = CommandType.StoredProcedure;
-
-            if (modelLOC_City.CityID == null)
+            if (ModelState.IsValid)
             {
-                objCmd.CommandText = "PR_LOC_City_Insert";
+                #region Insert
+                string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+                SqlConnection conn = new SqlConnection(connectionstr);
 
-            }
-            #endregion
+                conn.Open();
 
-            #region Update By PK
-            else
-            {
-                objCmd.CommandText = "PR_LOC_City_UpdateByPK";
-                objCmd.Parameters.Add("@CityID", SqlDbType.Int).Value = modelLOC_City.CityID;
+                SqlCommand objCmd = conn.CreateCommand();
+                objCmd.CommandType = CommandType.StoredProcedure;
 
-
-            }
-            #endregion
-
-            objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelLOC_City.CountryID;
-            objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_City.StateID;
-            objCmd.Parameters.Add("@CityName", SqlDbType.NVarChar).Value = modelLOC_City.CityName;
-            objCmd.Parameters.Add("@PinCode", SqlDbType.NVarChar).Value = modelLOC_City.PinCode;
-            objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelLOC_City.CreationDate;
-            objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelLOC_City.ModificationDate;
-
-
-            if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
-            {
                 if (modelLOC_City.CityID == null)
-                    TempData["CityInsertMessage"] = "Record Insert Successfully";
+                {
+                    objCmd.CommandText = "PR_LOC_City_Insert";
+
+                }
+                #endregion
+
+                #region Update By PK
                 else
-                    TempData["CityInsertMessage"] = "Record Update Successfully";
+                {
+                    objCmd.CommandText = "PR_LOC_City_UpdateByPK";
+                    objCmd.Parameters.Add("@CityID", SqlDbType.Int).Value = modelLOC_City.CityID;
+
+
+                }
+                #endregion
+
+                objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelLOC_City.CountryID;
+                objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_City.StateID;
+                objCmd.Parameters.Add("@CityName", SqlDbType.NVarChar).Value = modelLOC_City.CityName;
+                objCmd.Parameters.Add("@PinCode", SqlDbType.NVarChar).Value = modelLOC_City.PinCode;
+                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelLOC_City.CreationDate;
+                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelLOC_City.ModificationDate;
+
+
+                if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
+                {
+                    if (modelLOC_City.CityID == null)
+                        TempData["CityInsertMessage"] = "Record Insert Successfully";
+                    else
+                        TempData["CityInsertMessage"] = "Record Update Successfully";
+
+                }
+
+                conn.Close();
 
             }
-
-            conn.Close();
 
 
             return RedirectToAction("Add");
