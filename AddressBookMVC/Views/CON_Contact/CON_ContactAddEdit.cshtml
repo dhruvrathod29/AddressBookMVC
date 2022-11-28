@@ -99,6 +99,7 @@
                     <select asp-for="CityID" asp-items="@(new SelectList(ViewBag.CityList,"CityID","CityName"))" class="form-control">
                         <option value="">Select City</option>
                     </select>
+                    <span asp-validation-for="CityID" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -110,6 +111,7 @@
                     <select asp-for="ContactCategoryID" asp-items="@(new SelectList(ViewBag.ContactCategoryList,"ContactCategoryID","ContactCategoryName"))" class="form-control">
                         <option value="">Select ContactCategory</option>
                     </select>
+                    <span asp-validation-for="ContactCategoryID" class="text-danger"></span>
                 </div>
             </div>
             <br />
@@ -122,6 +124,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter Contact Name" asp-for="ContactName" class="form-control" />
+                    <span asp-validation-for="ContactName" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -131,6 +134,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter Address" asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
             </div>
             <br />
@@ -144,6 +148,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter PinCode" asp-for="PinCode" class="form-control" />
+                    <span asp-validation-for="PinCode" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -153,6 +158,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter Mobile No" asp-for="MobileNo" class="form-control" />
+                    <span asp-validation-for="MobileNo" class="text-danger"></span>
                 </div>
             </div>
 
@@ -166,6 +172,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter Alternet Contact" asp-for="AlternetContact" class="form-control" />
+                    <span asp-validation-for="AlternetContact" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -175,6 +182,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="email" placeholder="Enter Email" asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
             </div>
             <br />
@@ -185,6 +193,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="date" placeholder="Enter Birth Date" asp-for="BirthDate" class="form-control" />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -193,6 +202,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter LinkedIn Id" asp-for="LinkedIn" class="form-control" />
+                    <span asp-validation-for="LinkedIn" class="text-danger"></span>
                 </div>
             </div>
             <br />
@@ -203,6 +213,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter Twitter Id" asp-for="Twitter" class="form-control" />
+                    <span asp-validation-for="Twitter" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
@@ -211,6 +222,7 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter Instagram Id" asp-for="Insta" class="form-control" />
+                    <span asp-validation-for="Insta" class="text-danger"></span>
                 </div>
             </div>
             <br />
@@ -221,17 +233,19 @@
                 </div>
                 <div class="col-md-3">
                     <input type="text" placeholder="Enter Gender" asp-for="Gender" class="form-control" />
+                    <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-2">
-                    <span style="color: #ff0000">*</span>
+                   
                     Photo Upload  :-
 
                 </div>
                 <div class="col-md-3">
 
                     <input type="file" placeholder="Upload Photo" asp-for="File" class="form-control" />
+                    <span asp-validation-for="PhotoPath" class="text-danger"></span>
 
                 </div>
             </div>
