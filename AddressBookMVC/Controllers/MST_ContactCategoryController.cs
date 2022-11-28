@@ -112,8 +112,8 @@ namespace AddressBookMVC.Controllers
                 #endregion
 
                 objCmd.Parameters.Add("@ContactCategoryName", SqlDbType.NVarChar).Value = modelMST_ContactCategory.ContactCategoryName;
-                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelMST_ContactCategory.CreationDate;
-                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelMST_ContactCategory.ModificationDate;
+                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DBNull.Value;
+                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = DBNull.Value;
 
                 if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
                 {

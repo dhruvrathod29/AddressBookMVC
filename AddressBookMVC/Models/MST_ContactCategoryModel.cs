@@ -15,8 +15,8 @@ namespace AddressBookMVC.Models
         [StringLength(10, MinimumLength = 3)]
         public string ContactCategoryName { get; set; }
         
-        public DateTime CreationDate { get; set; }  
-        public DateTime ModificationDate { get; set; }
+        public DateTime? CreationDate { get; set; }  
+        public DateTime? ModificationDate { get; set; }
 
     }
     #endregion
