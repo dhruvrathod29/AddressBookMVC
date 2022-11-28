@@ -28,8 +28,8 @@ namespace AddressBookMVC.Models
         [DisplayName("Pincode")]
         public string PinCode { get; set; }
 
-        public DateTime CreationDate { get; set; }  
-        public DateTime ModificationDate { get; set; }
+        public DateTime? CreationDate { get; set; }  
+        public DateTime? ModificationDate { get; set; }
     }
     #endregion
 

@@ -163,8 +163,8 @@ namespace AddressBookMVC.Controllers
                 objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_City.StateID;
                 objCmd.Parameters.Add("@CityName", SqlDbType.NVarChar).Value = modelLOC_City.CityName;
                 objCmd.Parameters.Add("@PinCode", SqlDbType.NVarChar).Value = modelLOC_City.PinCode;
-                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = modelLOC_City.CreationDate;
-                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = modelLOC_City.ModificationDate;
+                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DBNull.Value;
+                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = DBNull.Value;
 
 
                 if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
