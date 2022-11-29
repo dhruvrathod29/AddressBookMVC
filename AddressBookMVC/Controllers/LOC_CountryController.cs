@@ -32,9 +32,6 @@ namespace AddressBookMVC.Controllers
 
             return View("LOC_CountryList", dt);
 
-
-
-
             /*  DataTable dt = new DataTable();
               SqlConnection conn = new SqlConnection(connectionstr);
 

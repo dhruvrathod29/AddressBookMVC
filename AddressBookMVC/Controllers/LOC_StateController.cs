@@ -1,4 +1,5 @@
-﻿using AddressBookMVC.Models;
+﻿using AddressBookMVC.DAL;
+using AddressBookMVC.Models;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -24,23 +25,26 @@ namespace AddressBookMVC.Controllers
         public IActionResult Index()
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+            LOC_DAL dalLOC = new LOC_DAL();
+            DataTable dt = dalLOC.dbo_PR_LOC_State_SelectAll(connectionstr);
+            return View("LOC_StateList", dt);
 
-            DataTable dt = new DataTable(); 
-            
-            SqlConnection conn = new SqlConnection(connectionstr);
-            
-            conn.Open();
-            
-            SqlCommand objCmd = conn.CreateCommand();
-            objCmd.CommandType = CommandType.StoredProcedure;
-            objCmd.CommandText = "PR_LOC_State_SelectAll";
-            SqlDataReader objSDR = objCmd.ExecuteReader();
-            
-            dt.Load(objSDR);
-            
-            conn.Close();
 
-            return View("LOC_StateList",dt);
+            /* DataTable dt = new DataTable(); 
+
+             SqlConnection conn = new SqlConnection(connectionstr);
+
+             conn.Open();
+
+             SqlCommand objCmd = conn.CreateCommand();
+             objCmd.CommandType = CommandType.StoredProcedure;
+             objCmd.CommandText = "PR_LOC_State_SelectAll";
+             SqlDataReader objSDR = objCmd.ExecuteReader();
+
+             dt.Load(objSDR);
+
+             conn.Close();*/
+
 
         }
         #endregion
