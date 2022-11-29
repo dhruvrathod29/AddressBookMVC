@@ -5,6 +5,7 @@ using System.Data;
 using AddressBookMVC.Models;
 using System;
 using System.Collections.Generic;
+using AddressBookMVC.DAL;
 
 namespace AddressBookMVC.Controllers
 {
@@ -24,21 +25,26 @@ namespace AddressBookMVC.Controllers
         public IActionResult Index()
         {
             #region SelectAll
+           
+            
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-            DataTable dt = new DataTable();
-            SqlConnection conn = new SqlConnection(connectionstr);
-
-            conn.Open();
-
-            SqlCommand objCmd = conn.CreateCommand();
-            objCmd.CommandType = CommandType.StoredProcedure;
-            objCmd.CommandText = "PR_LOC_City_SelectAll";
-            SqlDataReader objSDR = objCmd.ExecuteReader();
-            dt.Load(objSDR);
-
-            conn.Close();
-
+            LOC_DAL dalLOC = new LOC_DAL();
+            DataTable dt = dalLOC.dbo_PR_LOC_City_SelectAll(connectionstr);
             return View("LOC_CityList", dt);
+
+            /* DataTable dt = new DataTable();
+             SqlConnection conn = new SqlConnection(connectionstr);
+
+             conn.Open();
+
+             SqlCommand objCmd = conn.CreateCommand();
+             objCmd.CommandType = CommandType.StoredProcedure;
+             objCmd.CommandText = "PR_LOC_City_SelectAll";
+             SqlDataReader objSDR = objCmd.ExecuteReader();
+             dt.Load(objSDR);
+
+             conn.Close();*/
+
             #endregion
         }
         #endregion

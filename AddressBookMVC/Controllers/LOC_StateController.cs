@@ -29,7 +29,6 @@ namespace AddressBookMVC.Controllers
             DataTable dt = dalLOC.dbo_PR_LOC_State_SelectAll(connectionstr);
             return View("LOC_StateList", dt);
 
-
             /* DataTable dt = new DataTable(); 
 
              SqlConnection conn = new SqlConnection(connectionstr);
@@ -44,7 +43,6 @@ namespace AddressBookMVC.Controllers
              dt.Load(objSDR);
 
              conn.Close();*/
-
 
         }
         #endregion
