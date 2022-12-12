@@ -6,7 +6,7 @@ using System.Reflection.Emit;
 
 namespace AddressBookMVC.DAL
 {
-    public class LOC_DALBase
+    public abstract class LOC_DALBase
     {
         #region LOC_SelectAll
 
