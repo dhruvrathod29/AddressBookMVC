@@ -82,5 +82,30 @@ namespace AddressBookMVC.DAL
 
         #endregion
 
+        #region LOC_Delete
+
+        #region dbo.PR_LOC_Country_Delete
+
+        public bool dbo_PR_LOC_Country_DeleteByPK(string conn, int CountryID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_Country_DeleteByPK");
+                sqlDB.AddInParameter(dbCMD,"CountryID",SqlDbType.Int,CountryID);
+                int vReturnValue = sqlDB.EndExecuteNonQuery(dbCMD);
+                return (vReturnValue == -1 ? false : true);
+            }
+            catch (Exception ex)
+            {
+                return false;   
+            }
+        }
+
+
+        #endregion
+
+        #endregion
+
     }
 }

@@ -142,7 +142,17 @@ namespace AddressBookMVC.Controllers
         public IActionResult Delete(int CountryID)
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-            DataTable dt = new DataTable();
+
+            LOC_DAL dalLOC = new LOC_DAL();
+
+            if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_Country_DeleteByPK(connectionstr, CountryID)))
+            {
+                return RedirectToAction("Index");
+            }
+            return View("Index");
+
+
+            /*DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(connectionstr);
 
             conn.Open();
@@ -156,7 +166,7 @@ namespace AddressBookMVC.Controllers
             objCmd.ExecuteNonQuery();
 
             
-            conn.Close();
+            conn.Close();*/
 
             return RedirectToAction("Index");
         }
