@@ -85,7 +85,6 @@ namespace AddressBookMVC.DAL
         #region LOC_Delete
 
         #region dbo.PR_LOC_Country_Delete
-
         public bool dbo_PR_LOC_Country_DeleteByPK(string conn, int CountryID)
         {
             try
@@ -140,7 +139,6 @@ namespace AddressBookMVC.DAL
             }
         }
         #endregion
-
 
         #endregion
 
