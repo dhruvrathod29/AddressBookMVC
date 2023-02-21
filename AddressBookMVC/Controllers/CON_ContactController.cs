@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
+using AddressBookMVC.DAL;
 
 namespace AddressBookMVC.Controllers
 {
@@ -27,20 +28,25 @@ namespace AddressBookMVC.Controllers
         {
             #region SelectAll
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-            DataTable dt = new DataTable();
-            SqlConnection conn = new SqlConnection(connectionstr);
 
-            conn.Open();
-
-            SqlCommand objCmd = conn.CreateCommand();
-            objCmd.CommandType = CommandType.StoredProcedure;
-            objCmd.CommandText = "PR_CON_Contact_SelectAll";
-            SqlDataReader objSDR = objCmd.ExecuteReader();
-            dt.Load(objSDR);
-
-            conn.Close();
+            CON_DAL dalCON = new CON_DAL();
+            DataTable dt = dalCON.dbo_PR_CON_Contact_SelectAll(connectionstr);
 
             return View("CON_ContactList", dt);
+            /*  DataTable dt = new DataTable();
+              SqlConnection conn = new SqlConnection(connectionstr);
+
+              conn.Open();
+
+              SqlCommand objCmd = conn.CreateCommand();
+              objCmd.CommandType = CommandType.StoredProcedure;
+              objCmd.CommandText = "PR_CON_Contact_SelectAll";
+              SqlDataReader objSDR = objCmd.ExecuteReader();
+              dt.Load(objSDR);
+
+              conn.Close();
+
+              return View("CON_ContactList", dt);*/
             #endregion
         }
         #endregion
@@ -259,23 +265,31 @@ namespace AddressBookMVC.Controllers
         public IActionResult Delete(int ContactID)
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-            DataTable dt = new DataTable();
-            SqlConnection conn = new SqlConnection(connectionstr);
 
-            conn.Open();
+            CON_DAL dalCON = new CON_DAL();
 
-            SqlCommand objCmd = conn.CreateCommand();
-            objCmd.CommandType = CommandType.StoredProcedure;
-            objCmd.CommandText = "PR_CON_Contact_DeleteByPK";
+            if (Convert.ToBoolean(dalCON.dbo_PR_CON_Contact_DeleteByPK(connectionstr, ContactID)))
+            {
+                return RedirectToAction("Index");
+            }
+            return View("Index");
+            /*  DataTable dt = new DataTable();
+              SqlConnection conn = new SqlConnection(connectionstr);
 
-            objCmd.Parameters.AddWithValue("@ContactID", ContactID);
+              conn.Open();
 
-            objCmd.ExecuteNonQuery();
+              SqlCommand objCmd = conn.CreateCommand();
+              objCmd.CommandType = CommandType.StoredProcedure;
+              objCmd.CommandText = "PR_CON_Contact_DeleteByPK";
+
+              objCmd.Parameters.AddWithValue("@ContactID", ContactID);
+
+              objCmd.ExecuteNonQuery();
 
 
-            conn.Close();
+              conn.Close();
 
-            return RedirectToAction("Index");
+              return RedirectToAction("Index");*/
         }
         #endregion
 

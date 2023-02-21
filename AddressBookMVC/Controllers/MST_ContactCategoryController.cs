@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Data;
 using AddressBookMVC.Models;
 using System;
+using AddressBookMVC.DAL;
 
 namespace AddressBookMVC.Controllers
 {
@@ -23,7 +24,11 @@ namespace AddressBookMVC.Controllers
         {
             #region SelectAll
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-            DataTable dt = new DataTable();
+            CON_DAL dalCON = new CON_DAL();
+            DataTable dt = dalCON.dbo_PR_MST_ContactCategory_SelectAll(connectionstr);
+
+            return View("MST_ContactCategoryList", dt);
+            /*DataTable dt = new DataTable();
             SqlConnection conn = new SqlConnection(connectionstr);
 
             conn.Open();
@@ -37,7 +42,7 @@ namespace AddressBookMVC.Controllers
             conn.Close();
 
             return View("MST_ContactCategoryList", dt);
-            #endregion
+            #endregion*/
 
         }
         #endregion
