@@ -152,49 +152,34 @@ namespace AddressBookMVC.Controllers
             if (ModelState.IsValid)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-                SqlConnection conn = new SqlConnection(connectionstr);
 
-                conn.Open();
+                LOC_DAL dalLOC = new LOC_DAL();
 
-                SqlCommand objCmd = conn.CreateCommand();
-                objCmd.CommandType = CommandType.StoredProcedure;
 
                 if (modelLOC_State.StateID == null)
                 {
-                    objCmd.CommandText = "PR_LOC_State_Insert";
+
+                    if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_State_Insert(connectionstr, modelLOC_State)))
+                    {
+                        TempData["CountryInsertMessage"] = "Record inserted successfully";
+
+                    }
                 }
-
-                #endregion
-
-                #region Update By PK
                 else
                 {
-                    objCmd.CommandText = "PR_LOC_State_UpdateByPK";
-                    objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_State.StateID;
+                    if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_State_UpdateByPK(connectionstr, modelLOC_State)))
+                    {
 
+                        TempData["CountryUpdateMessage"] = "Record Update Successfully";
+
+                    }
+                    return RedirectToAction("Index");
                 }
-                #endregion
-
-                objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelLOC_State.CountryID;
-                objCmd.Parameters.Add("@StateName", SqlDbType.NVarChar).Value = modelLOC_State.StateName;
-                objCmd.Parameters.Add("@StateCode", SqlDbType.NVarChar).Value = modelLOC_State.StateCode;
-                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DBNull.Value;
-                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = DBNull.Value;
-
-
-                if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
-                {
-                    if (modelLOC_State.StateID == null)
-                        TempData["StateInsertMessage"] = "Record Insert Successfully";
-                    else
-                        TempData["StateInsertMessage"] = "Record Update Successfully";
-
-                }
-
-                conn.Close();
             }
             
             return RedirectToAction("Add");
+
+            #endregion
         }
         #endregion
 

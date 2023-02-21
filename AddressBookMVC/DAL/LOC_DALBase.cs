@@ -231,6 +231,32 @@ namespace AddressBookMVC.DAL
 
         #endregion
 
+        #region LOC_State_Insert
+        public bool dbo_PR_LOC_State_Insert(string str, LOC_StateModel modelLOC_State)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(str);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_Insert");
+                sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_State.CountryID);
+                sqlDB.AddInParameter(dbCMD, "StateName", SqlDbType.NVarChar, modelLOC_State.StateName);
+                sqlDB.AddInParameter(dbCMD, "StateCode", SqlDbType.NVarChar, modelLOC_State.StateCode);
+                sqlDB.AddInParameter(dbCMD, "CreationDate", SqlDbType.DateTime, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+                sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
+                return (vReturnValue == -1 ? false : true);
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+
+        #endregion
+
         #endregion
 
         #region LOC_UpdateByPK
@@ -259,6 +285,33 @@ namespace AddressBookMVC.DAL
             }
         }
         #endregion
+
+        #region LOC_State_UpdateByPK
+        public bool dbo_PR_LOC_State_UpdateByPK(string str, LOC_StateModel modelLOC_State)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(str);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_State_UpdateByPK");
+                sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, modelLOC_State.CountryID);
+                sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_State.CountryID);
+                sqlDB.AddInParameter(dbCMD, "StateName", SqlDbType.NVarChar, modelLOC_State.StateName);
+                sqlDB.AddInParameter(dbCMD, "StateCode", SqlDbType.NVarChar, modelLOC_State.StateCode);
+                sqlDB.AddInParameter(dbCMD, "CreationDate", SqlDbType.DateTime, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+                sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
+                return (vReturnValue == -1 ? false : true);
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
 
         #endregion
 
