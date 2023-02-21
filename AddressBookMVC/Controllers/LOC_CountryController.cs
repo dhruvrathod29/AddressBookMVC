@@ -51,37 +51,58 @@ namespace AddressBookMVC.Controllers
         #endregion
 
         #region Add
-        public IActionResult Add(int? CountryID)
+        public IActionResult Add(int CountryID)
         {
             #region Select By PK
             if (CountryID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-                SqlConnection conn = new SqlConnection(connectionstr);
+                LOC_DAL dalLOC = new LOC_DAL();
 
-                conn.Open();
-
-                SqlCommand objCmd = conn.CreateCommand();
-                objCmd.CommandType = CommandType.StoredProcedure;
-                objCmd.CommandText = "PR_LOC_Country_SelectByPK";
-                objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = CountryID;
-                DataTable dt= new DataTable();
-                SqlDataReader objSDR = objCmd.ExecuteReader();
-                dt.Load(objSDR);
-
-                LOC_CountryModel modelLOC_CountryModel = new LOC_CountryModel();
-
-                foreach (DataRow dr in dt.Rows)
+                DataTable dt = dalLOC.dbo_PR_LOC_Country_SelectByPK(connectionstr,CountryID);
+                if (dt.Rows.Count > 0)
                 {
-                    modelLOC_CountryModel.CountryID = Convert.ToInt32(dr["CountryID"]); 
-                    modelLOC_CountryModel.CountryName = dr["CountryName"].ToString(); 
-                    modelLOC_CountryModel.CountryCode = dr["CountryCode"].ToString(); 
-                    modelLOC_CountryModel.CreationDate = Convert.ToDateTime(dr["CreationDate"]); 
-                    modelLOC_CountryModel.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+                    LOC_CountryModel model = new LOC_CountryModel();
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        model.CountryID = Convert.ToInt32(dr["CountryID"]);
+                        model.CountryName= dr["CountryName"].ToString();
+                        model.CountryCode = dr["CountryCode"].ToString();
+                        model.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
+                        model.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
 
-                    return View("LOC_CountryAddEdit", modelLOC_CountryModel);
+                    }
+                    return View("LOC_CountryAddEdit",model);
                 }
-                conn.Close();
+
+
+
+                /*  string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+                  SqlConnection conn = new SqlConnection(connectionstr);
+
+                  conn.Open();
+
+                  SqlCommand objCmd = conn.CreateCommand();
+                  objCmd.CommandType = CommandType.StoredProcedure;
+                  objCmd.CommandText = "PR_LOC_Country_SelectByPK";
+                  objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = CountryID;
+                  DataTable dt= new DataTable();
+                  SqlDataReader objSDR = objCmd.ExecuteReader();
+                  dt.Load(objSDR);
+
+                  LOC_CountryModel modelLOC_CountryModel = new LOC_CountryModel();
+
+                  foreach (DataRow dr in dt.Rows)
+                  {
+                      modelLOC_CountryModel.CountryID = Convert.ToInt32(dr["CountryID"]); 
+                      modelLOC_CountryModel.CountryName = dr["CountryName"].ToString(); 
+                      modelLOC_CountryModel.CountryCode = dr["CountryCode"].ToString(); 
+                      modelLOC_CountryModel.CreationDate = Convert.ToDateTime(dr["CreationDate"]); 
+                      modelLOC_CountryModel.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+
+                      return View("LOC_CountryAddEdit", modelLOC_CountryModel);
+                  }
+                  conn.Close();*/
             }
             #endregion
 

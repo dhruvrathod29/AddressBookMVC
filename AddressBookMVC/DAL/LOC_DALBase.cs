@@ -142,5 +142,37 @@ namespace AddressBookMVC.DAL
 
         #endregion
 
+        #region LOC_SelectByPK
+
+        #region LOC_Country_SelectByPK
+
+        public DataTable dbo_PR_LOC_Country_SelectByPK(string conn, int CountryID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_SelectByPK");
+                sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, CountryID);
+
+                DataTable dt = new DataTable();
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
+                {
+                    dt.Load(dr);
+
+                }
+                return dt;
+            }
+            catch(Exception ex) 
+            {
+                return null;
+            }
+            
+
+        }
+
+        #endregion
+
+        #endregion
+
     }
 }
