@@ -93,7 +93,7 @@ namespace AddressBookMVC.DAL
                 SqlDatabase sqlDB = new SqlDatabase(conn);
                 DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_Country_DeleteByPK");
                 sqlDB.AddInParameter(dbCMD,"CountryID",SqlDbType.Int,CountryID);
-                int vReturnValue = sqlDB.EndExecuteNonQuery(dbCMD);
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
                 return (vReturnValue == -1 ? false : true);
             }
             catch (Exception ex)
@@ -104,6 +104,43 @@ namespace AddressBookMVC.DAL
 
 
         #endregion
+
+        #region PR_LOC_State_Delete
+        public bool dbo_PR_LOC_State_DeleteByPK(string conn, int StateID)
+        {
+            try
+            {
+                SqlDatabase sqlDB =  new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_State_DeleteByPK");
+                sqlDB.AddInParameter(dbCMD,"StateID",SqlDbType.Int ,StateID);
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
+                return(vReturnValue == -1 ? false : true);  
+            }
+            catch(Exception ex) 
+            {
+                return false;
+            }
+        }
+        #endregion
+
+        #region PR_LOC_City_Delete
+        public bool dbo_PR_LOC_City_DeleteByPK(string conn, int CityID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_City_DeleteByPK");
+                sqlDB.AddInParameter(dbCMD, "StateID", SqlDbType.Int, CityID);
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
+                return (vReturnValue == -1 ? false : true);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        #endregion
+
 
         #endregion
 

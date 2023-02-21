@@ -195,8 +195,16 @@ namespace AddressBookMVC.Controllers
         public IActionResult Delete(int CityID)
         {
             string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-            DataTable dt = new DataTable();
-            SqlConnection conn = new SqlConnection(connectionstr);
+           
+            LOC_DAL dalLOC = new LOC_DAL();
+
+            if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_City_DeleteByPK(connectionstr, CityID)))
+            {
+                return RedirectToAction("Index");
+            }
+            return View("Index");
+
+            /*SqlConnection conn = new SqlConnection(connectionstr);
 
             conn.Open();
 
@@ -210,8 +218,8 @@ namespace AddressBookMVC.Controllers
 
 
             conn.Close();
+*/
 
-            return RedirectToAction("Index");
         }
         #endregion
 

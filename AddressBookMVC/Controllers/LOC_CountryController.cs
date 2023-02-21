@@ -168,7 +168,7 @@ namespace AddressBookMVC.Controllers
             
             conn.Close();*/
 
-            return RedirectToAction("Index");
+            
         }
         #endregion
 
