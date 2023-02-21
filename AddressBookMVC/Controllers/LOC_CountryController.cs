@@ -117,45 +117,33 @@ namespace AddressBookMVC.Controllers
             if (ModelState.IsValid)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-                SqlConnection conn = new SqlConnection(connectionstr);
 
-                conn.Open();
+                LOC_DAL dalLOC = new LOC_DAL();
 
-                SqlCommand objCmd = conn.CreateCommand();
-                objCmd.CommandType = CommandType.StoredProcedure;
 
                 if (modelLOC_Country.CountryID == null)
                 {
 
-                    objCmd.CommandText = "PR_LOC_Country_Insert";
+                    if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_Country_Insert(connectionstr, modelLOC_Country)))
+                    {
+                        TempData["CountryInsertMessage"] = "Record inserted successfully";
 
+                    }
                 }
                 else
                 {
-                    objCmd.CommandText = "PR_LOC_Country_UpdateByPK";
-                    objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelLOC_Country.CountryID;
+                    if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_Country_UpdateByPK(connectionstr, modelLOC_Country)))
+                    {
+
+                        TempData["CountryUpdateMessage"] = "Record Update Successfully";
+
+                    }
+                    return RedirectToAction("Index");
                 }
 
-                objCmd.Parameters.Add("@CountryName", SqlDbType.NVarChar).Value = modelLOC_Country.CountryName;
-                objCmd.Parameters.Add("@CountryCode", SqlDbType.NVarChar).Value = modelLOC_Country.CountryCode;
-                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DBNull.Value;
-                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = DBNull.Value;
-
-
-                if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
-                {
-                    if (modelLOC_Country.CountryID == null)
-                        TempData["CountryInsertMessage"] = "Record Insert Successfully";
-
-                    else
-                        TempData["CountryInsertMessage"] = "Record Update Successfully";
-
-                }
-
-                conn.Close();
             }
            
-            return View("LOC_CountryAddEdit");  
+            return RedirectToAction("Add");
         }
         #endregion
 

@@ -1,7 +1,9 @@
-﻿using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
+﻿using AddressBookMVC.Models;
+using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System;
 using System.Data;
 using System.Data.Common;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection.Emit;
 
 namespace AddressBookMVC.DAL
@@ -198,6 +200,64 @@ namespace AddressBookMVC.DAL
 
         }
 
+        #endregion
+
+        #endregion
+
+        #region LOC_Insert
+
+        #region LOC_Country_Insert
+
+        public bool dbo_PR_LOC_Country_Insert(string str,LOC_CountryModel modelLOC_Country)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(str);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_Country_Insert");
+                sqlDB.AddInParameter(dbCMD, "CountryName", SqlDbType.NVarChar, modelLOC_Country.CountryName);
+                sqlDB.AddInParameter(dbCMD,"CountryCode", SqlDbType.NVarChar, modelLOC_Country.CountryCode);
+                sqlDB.AddInParameter(dbCMD, "CreationDate", SqlDbType.DateTime, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+                sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
+                return (vReturnValue == -1 ? false : true);
+
+            }
+            catch (Exception ex) 
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region LOC_UpdateByPK
+
+        #region LOC_Country_UpdateByPK
+        public bool dbo_PR_LOC_Country_UpdateByPK(string str, LOC_CountryModel modelLOC_Country)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(str);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_Country_UpdateByPK");
+                sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, modelLOC_Country.CountryID);
+                sqlDB.AddInParameter(dbCMD, "CountryName", SqlDbType.NVarChar, modelLOC_Country.CountryName);
+                sqlDB.AddInParameter(dbCMD, "CountryCode", SqlDbType.NVarChar, modelLOC_Country.CountryCode);
+                sqlDB.AddInParameter(dbCMD, "CreationDate", SqlDbType.DateTime, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+
+                sqlDB.AddInParameter(dbCMD, "ModificationDate", SqlDbType.DateTime, DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss"));
+
+                int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
+                return (vReturnValue == -1 ? false : true);
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         #endregion
 
         #endregion
