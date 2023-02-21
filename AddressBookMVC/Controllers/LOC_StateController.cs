@@ -48,7 +48,7 @@ namespace AddressBookMVC.Controllers
         #endregion
 
         #region Add
-        public IActionResult Add(int? StateID)
+        public IActionResult Add(int StateID)
         {
             #region Country Drop Down
 
@@ -83,7 +83,28 @@ namespace AddressBookMVC.Controllers
 
             if (StateID != null)
             {
+
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+                LOC_DAL dalLOC = new LOC_DAL();
+
+                DataTable dt = dalLOC.dbo_PR_LOC_State_SelectByPK(connectionstr, StateID);
+                if (dt.Rows.Count > 0)
+                {
+                    LOC_StateModel model = new LOC_StateModel();
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        model.CountryID = Convert.ToInt32(dr["CountryID"]);
+                        model.StateID = Convert.ToInt32(dr["StateID"]);
+                        model.StateName = dr["StateName"].ToString();
+                        model.StateCode = dr["StateCode"].ToString();
+                        model.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
+                        model.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+
+                    }
+                    return View("LOC_StateAddEdit", model);
+                }
+
+                /*string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
                 SqlConnection conn = new SqlConnection(connectionstr);
 
                 conn.Open();
@@ -113,7 +134,7 @@ namespace AddressBookMVC.Controllers
                 }
                
                
-                conn.Close();
+                conn.Close();*/
             }
             #endregion
 
