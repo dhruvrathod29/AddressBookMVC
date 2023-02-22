@@ -60,7 +60,15 @@
 
 
     <div class="container">
-        <h5 style="color:green"><label>@TempData["CityInsertMessage"]</label></h5>
+        @if (TempData["CityInsertMessage"] != null)
+        {
+            <div class="alert alert-success  alert-dismissible fade show" role="alert">
+                <i class="fa-solid fa-circle-check"></i><strong> Country details! </strong><label>@TempData["CityInsertMessage"]</label>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            @*<label class="alert alert-success alert-dismissible fade show" role="alert"></label>*@
+        }
         <br />
         <form method="post" asp-controller="LOC_City" asp-action="Save">
             @Html.HiddenFor(x=>x.CityID)

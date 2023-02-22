@@ -218,6 +218,28 @@ namespace AddressBookMVC.Controllers
         [HttpPost]
         public IActionResult Save(CON_ContactModel modelCON_Contact)
         {
+            #region PhotoPath
+            if (modelCON_Contact.File != null)
+            {
+                string FilePath = "wwwroot\\Upload";
+                string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
+
+                if (!Directory.Exists(path))
+                    Directory.CreateDirectory(path);
+
+                string fileNameWithPath = Path.Combine(path, modelCON_Contact.File.FileName);
+                modelCON_Contact.PhotoPath = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + modelCON_Contact.File.FileName;
+
+                using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
+                {
+                    modelCON_Contact.File.CopyTo(stream);
+                }
+
+            }
+            #endregion
+
+
+
             if (ModelState.IsValid)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
@@ -267,26 +289,7 @@ namespace AddressBookMVC.Controllers
                #endregion*/
 
 
-                #region PhotoPath
-                if (modelCON_Contact.File != null)
-                {
-                    string FilePath = "wwwroot\\Upload";
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), FilePath);
-
-                    if (!Directory.Exists(path))
-                        Directory.CreateDirectory(path);
-
-                    string fileNameWithPath = Path.Combine(path, modelCON_Contact.File.FileName);
-                    modelCON_Contact.PhotoPath = "~" + FilePath.Replace("wwwroot\\", "/") + "/" + modelCON_Contact.File.FileName;
-
-                    using (var stream = new FileStream(fileNameWithPath, FileMode.Create))
-                    {
-                        modelCON_Contact.File.CopyTo(stream);
-                    }
-
-                }
-                #endregion
-
+                
                 #region Update By PK
 
                 #endregion
