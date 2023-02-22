@@ -73,8 +73,15 @@
         </div>
     </div>
 </section><!-- End Intro Single-->
+@if (TempData["ContactCategoryUpdateMessage"] != null)
+{
+    <div class="alert alert-success  alert-dismissible fade show" role="alert">
+        <i class="fa-solid fa-circle-check"></i><strong> Country details! </strong><label>@TempData["ContactCategoryUpdateMessage"]</label>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 
-<br />
+    @*<label class="alert alert-success alert-dismissible fade show" role="alert"></label>*@
+}
 <div style="overflow-x :auto">
     <table class="table table-hover" id="sample_1">
 

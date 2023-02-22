@@ -124,7 +124,7 @@ namespace AddressBookMVC.Controllers
 
                     if (Convert.ToBoolean(dalCON.dbo_PR_MST_ContactCategory_Insert(connectionstr, modelMST_ContactCategory)))
                     {
-                        TempData["CountryInsertMessage"] = "Record inserted successfully";
+                        TempData["ContactCategoryInsertMessage"] = "Record inserted successfully";
 
                     }
                 }
@@ -133,7 +133,7 @@ namespace AddressBookMVC.Controllers
                     if (Convert.ToBoolean(dalCON.dbo_PR_MST_ContactCategory_UpdateByPK(connectionstr, modelMST_ContactCategory)))
                     {
 
-                        TempData["CountryUpdateMessage"] = "Record Update Successfully";
+                        TempData["ContactCategoryUpdateMessage"] = "Record Update Successfully";
 
                     }
                     return RedirectToAction("Index");

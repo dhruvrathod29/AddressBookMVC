@@ -161,7 +161,7 @@ namespace AddressBookMVC.Controllers
 
                     if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_State_Insert(connectionstr, modelLOC_State)))
                     {
-                        TempData["CountryInsertMessage"] = "Record inserted successfully";
+                        TempData["StateInsertMessage"] = "Record inserted successfully";
 
                     }
                 }
@@ -170,7 +170,7 @@ namespace AddressBookMVC.Controllers
                     if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_State_UpdateByPK(connectionstr, modelLOC_State)))
                     {
 
-                        TempData["CountryUpdateMessage"] = "Record Update Successfully";
+                        TempData["StateUpdateMessage"] = "Record Update Successfully";
 
                     }
                     return RedirectToAction("Index");

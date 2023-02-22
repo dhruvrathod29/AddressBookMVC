@@ -57,7 +57,15 @@
 
 
     <div class="container">
-        <h5 style="color:green"><label>@TempData["ContactInsertMessage"]</label></h5>
+        @if (TempData["ContactInsertMessage"] != null)
+        {
+            <div class="alert alert-success  alert-dismissible fade show" role="alert">
+                <i class="fa-solid fa-circle-check"></i><strong> Country details! </strong><label>@TempData["ContactInsertMessage"]</label>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            @*<label class="alert alert-success alert-dismissible fade show" role="alert"></label>*@
+        }
         <br />
         <form method="post" asp-controller="CON_Contact" asp-action="Save" enctype="multipart/form-data">
             @Html.HiddenFor(x=>x.ContactID)
