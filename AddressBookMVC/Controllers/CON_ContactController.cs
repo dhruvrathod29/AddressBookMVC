@@ -52,7 +52,7 @@ namespace AddressBookMVC.Controllers
         #endregion
 
         #region Add
-        public IActionResult Add(int? ContactID)
+        public IActionResult Add(int ContactID)
         {
 
             #region Country Drop Down
@@ -122,7 +122,48 @@ namespace AddressBookMVC.Controllers
             #region Select By PK
             if (ContactID != null)
             {
+
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+                CON_DAL dalCON = new CON_DAL();
+
+                DataTable dt = dalCON.dbo_PR_CON_Contact_SelectByPK(connectionstr, ContactID);
+                if (dt.Rows.Count > 0)
+                {
+                    CON_ContactModel model = new CON_ContactModel();
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        DropDownByCountry(Convert.ToInt32(dr["CountryID"]));
+                        DropDownByState(Convert.ToInt32(dr["StateID"]));
+                        model.ContactID = Convert.ToInt32(dr["ContactID"]);
+                        model.CountryID = Convert.ToInt32(dr["CountryID"]);
+                        model.StateID = Convert.ToInt32(dr["StateID"]);
+                        model.CityID = Convert.ToInt32(dr["CityID"]);
+                        model.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
+                        model.ContactName = dr["ContactName"].ToString();
+                        model.Address = dr["Address"].ToString();
+                        model.PinCode = dr["PinCode"].ToString();
+                        model.MobileNo = dr["MobileNo"].ToString();
+                        model.AlternetContact = dr["AlternetContact"].ToString();
+                        model.Email = dr["Email"].ToString();
+                        model.BirthDate = Convert.ToDateTime(dr["BirthDate"]);
+                        model.LinkedIn = dr["LinkedIn"].ToString();
+                        model.Twitter = dr["Twitter"].ToString();
+                        model.Insta = dr["Insta"].ToString();
+                        model.Gender = dr["Gender"].ToString();
+
+                        model.PhotoPath = dr["PhotoPath"].ToString();
+
+                        model.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
+                        model.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+
+                    }
+                    return View("CON_ContactAddEdit", model);
+
+
+                }
+
+
+                /*string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
                 SqlConnection conn = new SqlConnection(connectionstr);
 
                 conn.Open();
@@ -165,7 +206,7 @@ namespace AddressBookMVC.Controllers
 
                     return View("CON_ContactAddEdit", modelCON_ContactModel);
                 }
-                conn.Close();
+                conn.Close();*/
             }
             #endregion
 
@@ -179,27 +220,51 @@ namespace AddressBookMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                #region Insert
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-                SqlConnection conn = new SqlConnection(connectionstr);
+                CON_DAL dalCON = new CON_DAL();
 
-                conn.Open();
-
-                SqlCommand objCmd = conn.CreateCommand();
-                objCmd.CommandType = CommandType.StoredProcedure;
 
                 if (modelCON_Contact.ContactID == null)
                 {
-                    objCmd.CommandText = "PR_CON_Contact_Insert";
 
+                    if (Convert.ToBoolean(dalCON.dbo_PR_CON_Contact_Insert(connectionstr, modelCON_Contact)))
+                    {
+                        TempData["CountryInsertMessage"] = "Record inserted successfully";
+
+                    }
                 }
                 else
                 {
-                    objCmd.CommandText = "PR_CON_Contact_UpdateByPK";
-                    objCmd.Parameters.Add("@ContactID", SqlDbType.Int).Value = modelCON_Contact.ContactID;
+                    if (Convert.ToBoolean(dalCON.dbo_PR_CON_Contact_UpdateByPK(connectionstr, modelCON_Contact)))
+                    {
 
+                        TempData["CountryUpdateMessage"] = "Record Update Successfully";
+
+                    }
+                    return RedirectToAction("Index");
                 }
-                #endregion
+
+                /* #region Insert
+                string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+               SqlConnection conn = new SqlConnection(connectionstr);
+
+               conn.Open();
+
+               SqlCommand objCmd = conn.CreateCommand();
+               objCmd.CommandType = CommandType.StoredProcedure;
+
+               if (modelCON_Contact.ContactID == null)
+               {
+                   objCmd.CommandText = "PR_CON_Contact_Insert";
+
+               }
+               else
+               {
+                   objCmd.CommandText = "PR_CON_Contact_UpdateByPK";
+                   objCmd.Parameters.Add("@ContactID", SqlDbType.Int).Value = modelCON_Contact.ContactID;
+
+               }
+               #endregion*/
 
 
                 #region PhotoPath
@@ -226,7 +291,7 @@ namespace AddressBookMVC.Controllers
 
                 #endregion
 
-                objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelCON_Contact.CountryID;
+                /*objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelCON_Contact.CountryID;
                 objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelCON_Contact.StateID;
                 objCmd.Parameters.Add("@CityID", SqlDbType.Int).Value = modelCON_Contact.CityID;
                 objCmd.Parameters.Add("@ContactCategoryID", SqlDbType.Int).Value = modelCON_Contact.ContactCategoryID;
@@ -254,7 +319,7 @@ namespace AddressBookMVC.Controllers
                     else
                         TempData["ContactInsertMessage"] = "Record Update Successfully";
                 }
-                conn.Close();
+                conn.Close();*/
             }
            
             return RedirectToAction("Add");

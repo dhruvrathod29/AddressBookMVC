@@ -50,36 +50,57 @@ namespace AddressBookMVC.Controllers
         #endregion
 
         #region Add
-        public IActionResult Add(int? ContactCategoryID)
+        public IActionResult Add(int ContactCategoryID)
         {
             #region Select By PK
             if (ContactCategoryID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-                SqlConnection conn = new SqlConnection(connectionstr);
+                CON_DAL dalCON = new CON_DAL();
 
-                conn.Open();
-
-                SqlCommand objCmd = conn.CreateCommand();
-                objCmd.CommandType = CommandType.StoredProcedure;
-                objCmd.CommandText = "PR_MST_ContactCategory_SelectByPK";
-                objCmd.Parameters.Add("@ContactCategoryID", SqlDbType.Int).Value = ContactCategoryID;
-                DataTable dt = new DataTable();
-                SqlDataReader objSDR = objCmd.ExecuteReader();
-                dt.Load(objSDR);
-
-                MST_ContactCategoryModel modelMST_ContactCategory = new MST_ContactCategoryModel();
-
-                foreach (DataRow dr in dt.Rows)
+                DataTable dt = dalCON.dbo_PR_MST_ContactCategory_SelectByPK(connectionstr, ContactCategoryID);
+                if (dt.Rows.Count > 0)
                 {
-                    modelMST_ContactCategory.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
-                    modelMST_ContactCategory.ContactCategoryName = dr["ContactCategoryName"].ToString();
-                    modelMST_ContactCategory.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
-                    modelMST_ContactCategory.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+                    MST_ContactCategoryModel model = new MST_ContactCategoryModel();
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        model.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
+                        model.ContactCategoryName = dr["ContactCategoryName"].ToString();
+                    
+                        model.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
+                        model.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
 
-                    return View("MST_ContactCategoryAddEdit", modelMST_ContactCategory);
+                    }
+                    return View("MST_ContactCategoryAddEdit", model);
+
+
                 }
-                conn.Close();
+
+                    /*string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+                    SqlConnection conn = new SqlConnection(connectionstr);
+
+                    conn.Open();
+
+                    SqlCommand objCmd = conn.CreateCommand();
+                    objCmd.CommandType = CommandType.StoredProcedure;
+                    objCmd.CommandText = "PR_MST_ContactCategory_SelectByPK";
+                    objCmd.Parameters.Add("@ContactCategoryID", SqlDbType.Int).Value = ContactCategoryID;
+                    DataTable dt = new DataTable();
+                    SqlDataReader objSDR = objCmd.ExecuteReader();
+                    dt.Load(objSDR);
+
+                    MST_ContactCategoryModel modelMST_ContactCategory = new MST_ContactCategoryModel();
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        modelMST_ContactCategory.ContactCategoryID = Convert.ToInt32(dr["ContactCategoryID"]);
+                        modelMST_ContactCategory.ContactCategoryName = dr["ContactCategoryName"].ToString();
+                        modelMST_ContactCategory.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
+                        modelMST_ContactCategory.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+
+                        return View("MST_ContactCategoryAddEdit", modelMST_ContactCategory);
+                    }
+                    conn.Close();*/
             }
             #endregion
 
@@ -93,47 +114,72 @@ namespace AddressBookMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                #region Insert
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-                SqlConnection conn = new SqlConnection(connectionstr);
 
-                conn.Open();
+                CON_DAL dalCON = new CON_DAL();
 
-                SqlCommand objCmd = conn.CreateCommand();
-                objCmd.CommandType = CommandType.StoredProcedure;
 
                 if (modelMST_ContactCategory.ContactCategoryID == null)
                 {
-                    objCmd.CommandText = "PR_MST_ContactCategory_Insert";
 
+                    if (Convert.ToBoolean(dalCON.dbo_PR_MST_ContactCategory_Insert(connectionstr, modelMST_ContactCategory)))
+                    {
+                        TempData["CountryInsertMessage"] = "Record inserted successfully";
+
+                    }
                 }
-                #endregion
-
-                #region Update By PK
                 else
                 {
-                    objCmd.CommandText = "PR_MST_ContactCategory_UpdateByPK";
-                    objCmd.Parameters.Add("@ContactCategoryID", SqlDbType.Int).Value = modelMST_ContactCategory.ContactCategoryID;
+                    if (Convert.ToBoolean(dalCON.dbo_PR_MST_ContactCategory_UpdateByPK(connectionstr, modelMST_ContactCategory)))
+                    {
 
+                        TempData["CountryUpdateMessage"] = "Record Update Successfully";
+
+                    }
+                    return RedirectToAction("Index");
                 }
-                #endregion
 
-                objCmd.Parameters.Add("@ContactCategoryName", SqlDbType.NVarChar).Value = modelMST_ContactCategory.ContactCategoryName;
-                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DBNull.Value;
-                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = DBNull.Value;
+                /*  #region Insert
+                  string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+                  SqlConnection conn = new SqlConnection(connectionstr);
 
-                if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
-                {
-                    if (modelMST_ContactCategory.ContactCategoryID == null)
-                        TempData["ContactCategoryInsertMessage"] = "Record Insert Successfully";
-                    else
-                        TempData["ContactCategoryInsertMessage"] = "Record Update Successfully";
-                }
-                conn.Close();
+                  conn.Open();
+
+                  SqlCommand objCmd = conn.CreateCommand();
+                  objCmd.CommandType = CommandType.StoredProcedure;
+
+                  if (modelMST_ContactCategory.ContactCategoryID == null)
+                  {
+                      objCmd.CommandText = "PR_MST_ContactCategory_Insert";
+
+                  }
+                  #endregion
+
+                  #region Update By PK
+                  else
+                  {
+                      objCmd.CommandText = "PR_MST_ContactCategory_UpdateByPK";
+                      objCmd.Parameters.Add("@ContactCategoryID", SqlDbType.Int).Value = modelMST_ContactCategory.ContactCategoryID;
+
+                  }
+                  #endregion
+
+                  objCmd.Parameters.Add("@ContactCategoryName", SqlDbType.NVarChar).Value = modelMST_ContactCategory.ContactCategoryName;
+                  objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DBNull.Value;
+                  objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = DBNull.Value;
+
+                  if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
+                  {
+                      if (modelMST_ContactCategory.ContactCategoryID == null)
+                          TempData["ContactCategoryInsertMessage"] = "Record Insert Successfully";
+                      else
+                          TempData["ContactCategoryInsertMessage"] = "Record Update Successfully";
+                  }
+                  conn.Close();*/
             }
 
            
-            return View("MST_ContactCategoryAddEdit");
+            return RedirectToAction("Add");
         }
         #endregion
 
