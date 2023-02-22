@@ -50,7 +50,7 @@ namespace AddressBookMVC.Controllers
         #endregion
 
         #region Add
-        public IActionResult Add(int? CityID)
+        public IActionResult Add(int CityID)
         {
 
             #region Country Drop Down
@@ -95,6 +95,28 @@ namespace AddressBookMVC.Controllers
             if (CityID != null)
             {
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
+                LOC_DAL dalLOC = new LOC_DAL();
+
+                DataTable dt = dalLOC.dbo_PR_LOC_City_SelectByPK(connectionstr, CityID);
+                if (dt.Rows.Count > 0)
+                {
+                    LOC_CityModel model = new LOC_CityModel();
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        DropDownByCountry(Convert.ToInt32(dr["CountryID"]));
+                        model.StateID = Convert.ToInt32(dr["StateID"]);
+                        model.CityID = Convert.ToInt32(dr["CityID"]);
+                        model.CountryID = Convert.ToInt32(dr["CountryID"]);
+                        model.CityName = dr["CityName"].ToString();
+                        model.PinCode = dr["PinCode"].ToString();
+                        model.CreationDate = Convert.ToDateTime(dr["CreationDate"]);
+                        model.ModificationDate = Convert.ToDateTime(dr["ModificationDate"]);
+                    }
+                    return View("LOC_CityAddEdit", model);
+                }
+
+
+                /*string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
                 SqlConnection conn = new SqlConnection(connectionstr);
 
                 conn.Open();
@@ -124,7 +146,7 @@ namespace AddressBookMVC.Controllers
                 }
                 conn.Close();
 
-                // Aya Levanu baki chhe
+                // Aya Levanu baki chhe*/
             }
             #endregion
 

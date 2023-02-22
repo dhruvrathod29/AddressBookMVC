@@ -202,6 +202,33 @@ namespace AddressBookMVC.DAL
 
         #endregion
 
+        #region LOC_City_SelectByPK
+        public DataTable dbo_PR_LOC_City_SelectByPK(string conn, int CityID)
+        {
+            try
+            {
+                SqlDatabase sqlDB = new SqlDatabase(conn);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_City_SelectByPK");
+                sqlDB.AddInParameter(dbCMD, "CityID", SqlDbType.Int, CityID);
+
+                DataTable dt = new DataTable();
+                using (IDataReader dr = sqlDB.ExecuteReader(dbCMD))
+                {
+                    dt.Load(dr);
+
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+
+        }
+
+        #endregion
+
         #endregion
 
         #region LOC_Insert
