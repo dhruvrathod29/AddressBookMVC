@@ -161,50 +161,30 @@ namespace AddressBookMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                #region Insert
                 string connectionstr = this.Configuration.GetConnectionString("myConnectionStrings");
-                SqlConnection conn = new SqlConnection(connectionstr);
 
-                conn.Open();
+                LOC_DAL dalLOC = new LOC_DAL();
 
-                SqlCommand objCmd = conn.CreateCommand();
-                objCmd.CommandType = CommandType.StoredProcedure;
 
                 if (modelLOC_City.CityID == null)
                 {
-                    objCmd.CommandText = "PR_LOC_City_Insert";
 
+                    if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_City_Insert(connectionstr, modelLOC_City)))
+                    {
+                        TempData["CountryInsertMessage"] = "Record inserted successfully";
+
+                    }
                 }
-                #endregion
-
-                #region Update By PK
                 else
                 {
-                    objCmd.CommandText = "PR_LOC_City_UpdateByPK";
-                    objCmd.Parameters.Add("@CityID", SqlDbType.Int).Value = modelLOC_City.CityID;
+                    if (Convert.ToBoolean(dalLOC.dbo_PR_LOC_City_UpdateByPK(connectionstr, modelLOC_City)))
+                    {
 
+                        TempData["CountryUpdateMessage"] = "Record Update Successfully";
 
+                    }
+                    return RedirectToAction("Index");
                 }
-                #endregion
-
-                objCmd.Parameters.Add("@CountryID", SqlDbType.Int).Value = modelLOC_City.CountryID;
-                objCmd.Parameters.Add("@StateID", SqlDbType.Int).Value = modelLOC_City.StateID;
-                objCmd.Parameters.Add("@CityName", SqlDbType.NVarChar).Value = modelLOC_City.CityName;
-                objCmd.Parameters.Add("@PinCode", SqlDbType.NVarChar).Value = modelLOC_City.PinCode;
-                objCmd.Parameters.Add("@CreationDate", SqlDbType.Date).Value = DBNull.Value;
-                objCmd.Parameters.Add("@ModificationDate", SqlDbType.Date).Value = DBNull.Value;
-
-
-                if (Convert.ToBoolean(objCmd.ExecuteNonQuery()))
-                {
-                    if (modelLOC_City.CityID == null)
-                        TempData["CityInsertMessage"] = "Record Insert Successfully";
-                    else
-                        TempData["CityInsertMessage"] = "Record Update Successfully";
-
-                }
-
-                conn.Close();
 
             }
 

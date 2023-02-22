@@ -105,5 +105,19 @@ namespace AddressBookMVC.DAL
         #endregion
 
 
+        #region CON_SelectByPK
+
+        #region CON_Contact_SelectByPK
+
+
+
+        #endregion
+
+        #region MST_ContactCategory_SelectByPK
+
+        #endregion
+
+        #endregion
+
     }
 }
