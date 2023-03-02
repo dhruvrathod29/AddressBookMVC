@@ -92,14 +92,14 @@ namespace AddressBookMVC.DAL
             try
             {
                 SqlDatabase sqlDB = new SqlDatabase(conn);
-                DbCommand dbCMD = sqlDB.GetStoredProcCommand("dbo.PR_LOC_Country_DeleteByPK");
-                sqlDB.AddInParameter(dbCMD,"CountryID",SqlDbType.Int,CountryID);
+                DbCommand dbCMD = sqlDB.GetStoredProcCommand("PR_LOC_Country_DeleteByPK");
+                sqlDB.AddInParameter(dbCMD, "CountryID", SqlDbType.Int, CountryID);
                 int vReturnValue = sqlDB.ExecuteNonQuery(dbCMD);
                 return (vReturnValue == -1 ? false : true);
             }
             catch (Exception ex)
             {
-                return false;   
+                return false;
             }
         }
 
