@@ -165,6 +165,8 @@ namespace AddressBookMVC.DAL
 
 
         #region CON_UpdateByPK
+
+        #region CON_Contact_UpdateByPK
         public bool dbo_PR_CON_Contact_UpdateByPK(string str, CON_ContactModel modelCON_Contact)
         {
             try
@@ -205,8 +207,6 @@ namespace AddressBookMVC.DAL
                 return false;
             }
         }
-
-        #region CON_Contact_UpdateByPK
 
         #endregion
 
